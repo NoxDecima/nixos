@@ -6,8 +6,6 @@
 
 {
 	imports = [
-	    inputs.home-manager.nixosModules.home-manager
-	    ./home.nix
 		./programs.nix
 		./hardware-configuration.nix
 		./system/grub.nix

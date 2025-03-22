@@ -4,8 +4,8 @@
 	inputs = {
 		nixpkgs.url = "nixpkgs/nixos-24.11";
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-		home-manager.url = "github:nix-community/home-manager";
-		home-manager.inputs.nixpkgs.follows = "nixpkgs";
+        home-manager.url = "github:nix-community/home-manager";
+        home-manager.inputs.nixpkgs.follows = "nixpkgs";
 		hyprland.url = "github:hyprwm/Hyprland";
 	};
 
@@ -26,23 +26,23 @@
 		nixosConfigurations = {
 			nixos = lib.nixosSystem {
 				system = settings.system;
-				modules = [ ./configuration.nix ];
+				modules = [
+				  ./configuration.nix
+				  home-manager.nixosModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.${settings.userName} = import ./home.nix {
+                        inherit inputs;
+                        inherit settings;
+                    };
+                  }
+				];
 				specialArgs = {
 			        inherit inputs;
 					inherit settings;
 				};
 			};
 		};
-#		homeConfigurations = {
-#			nox = home-manager.lib.homeManagerConfiguration {
-#				inherit pkgs;
-#				system = settings.system;
-#				modules = [ ./home.nix ];
-#				extraSpecialArgs = {
-#			        inherit inputs;
-#					inherit settings;
-#				};
-#			};
-#		};
 	};
 }

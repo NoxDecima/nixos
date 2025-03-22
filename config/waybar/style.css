@@ -1,0 +1,115 @@
+@import "mocha.css";
+
+* {
+    font-family: JetBrainsMono Nerd Font Propo;
+    font-size: 15px;
+    min-height: 0;
+}
+
+
+.modules-left {
+    margin-left: 1rem;
+}
+/*.modules-center*/
+.modules-right {
+    margin-right: 1rem;
+}
+
+tooltip {
+    background: @base;
+    color: @text;
+}
+
+#waybar {
+    background: transparent;
+    color: @text;
+    margin: 5px 5px;
+}
+
+#workspaces,
+#tray,
+#middle,
+#custom-power,
+#system_usage,
+#pulseaudio{
+    padding: 0rem 1rem;
+    border-radius: 1rem;
+    background-color: alpha(@base, 0.97);
+}
+
+#middle {
+  margin-right: 43px;
+}
+
+/* Workspaces */
+#workspaces button {
+    color: @lavender;
+    border-radius: 1rem;
+}
+
+#workspaces button.active {
+    color: @sapphire;
+    background-color: alpha(@surface0, 0.97);
+    border-radius: 1rem;
+}
+
+#workspaces button:hover {
+    color: @sky;
+    border-radius: 1rem;
+}
+
+#workspaces button.urgent {
+    color: @red;
+}
+
+#clock {
+    color: @peach;
+}
+
+/* swaync */
+#custom-swaync {
+   background-color: @base;
+   padding: 0rem 0.5rem;
+   margin: 0rem 1rem;
+   color: @surface0;
+   font-size: 1.5rem;
+   background-color: @blue;
+   border-radius: 1rem;
+   transition-duration: 0.5s;
+   transition: all 0.3s ease;
+}
+
+#custom-swaync:hover {
+  background-color: @lavender;
+}
+
+#custom-swaync.notification,
+#custom-swaync.dnd-notification, 
+#custom-swaync.inhibited-notification,
+#custom-swaync.dnd-inhibited-notification {
+    background-color: @maroon;
+}
+
+#custom-swaync.notification:hover,
+#custom-swaync.dnd-notification:hover,
+#custom-swaync.inhibited-notification:hover,
+#custom-swaync.dnd-inhibited-notification:hover  {
+    background-color: @flamingo;
+}
+
+
+#pulseaudio {
+    color: @green;
+}
+
+#system_usage {
+    color: @yellow;
+}
+#memory {
+    padding: 0 10px;
+}
+
+#custom-power {
+    color: @red;
+}
+

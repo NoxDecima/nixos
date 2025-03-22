@@ -1,0 +1,383 @@
+@import 'mocha.css';
+@define-color mpris-album-art-overlay rgba(0, 0, 0, 0.55);
+@define-color mpris-button-hover rgba(0, 0, 0, 0.50);
+@define-color bg alpha(@base,.97);
+
+
+
+* {
+  all: unset;
+  font-family: JetBrainsMono Nerd Font Propo;
+  font-size: 15px;
+  color: @text;
+  transition: 200ms;
+}
+
+button {
+  background-color: @surface0;
+  box-shadow: inset 0 0 0 1px @surface1;
+  border-radius: 7px;
+  padding: 8px;
+}
+
+button:hover {
+  background-color: @surface2;
+}
+
+button:active {
+  background-color: @blue;
+  color: @base;
+}
+
+/*.toggle:checked {*/
+/*  background-color: red;*/
+/*  margin: 20rem;*/
+/*}*/
+
+
+
+/* Notifications */
+.floating-notifications.background .notification-row .notification-background {
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244;
+  border-radius: 12.6px;
+  margin: 18px;
+  background-color: @bg;
+  color: @text;
+  padding: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification {
+  padding: 7px;
+  border-radius: 12.6px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification.critical {
+  box-shadow: inset 0 0 7px 0 @red;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-content {
+  margin: 7px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-content .summary {
+  color: #cdd6f4;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-content .time {
+  color: #a6adc8;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-content .body {
+  color: #cdd6f4;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * {
+  min-height: 3.4em;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
+  border-radius: 7px;
+  color: #cdd6f4;
+  background-color: #313244;
+  box-shadow: inset 0 0 0 1px #45475a;
+  margin: 7px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+  box-shadow: inset 0 0 0 1px #45475a;
+  background-color: #313244;
+  color: #cdd6f4;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+  box-shadow: inset 0 0 0 1px #45475a;
+  background-color: #74c7ec;
+  color: #cdd6f4;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button {
+  margin: 7px;
+  padding: 2px;
+  border-radius: 6.3px;
+  color: #1e1e2e;
+  background-color: @red;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button:hover {
+  background-color: @maroon;
+  color: #1e1e2e;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button:active {
+  background-color: @red;
+  color: #1e1e2e;
+}
+
+
+
+
+/* Control-center */
+.control-center {
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px @surface0;
+  border-radius: 12.6px;
+  margin: 18px;
+  background-color: @bg;
+  color: @text;
+  padding: 20px;
+}
+
+.control-center .widget-title > label {
+  font-size: 1.5em;
+}
+
+.control-center .widget-title button {
+  border-radius: 7px;
+  background-color: @surface0;
+  box-shadow: inset 0 0 0 1px @surface1;
+  padding: 8px;
+}
+
+.control-center .widget-title button:hover {
+  box-shadow: inset 0 0 0 1px @sufface1;
+  background-color: @surface2;
+}
+
+.control-center .widget-title button:active {
+  box-shadow: inset 0 0 0 1px @suface1;
+  background-color: @blue;
+  color: @base;
+}
+
+/* notification inside of control-center */
+.notification-row .notification-background {
+  border-radius: 7px;
+  background-color: @surface0;
+  box-shadow: inset 0 0 0 1px @surface1;
+  margin-top: 14px;
+}
+
+.notification-row .notification-background .notification {
+  padding: 7px;
+  border-radius: 7px;
+}
+
+.notification-row .notification-background .notification.critical {
+  box-shadow: inset 0 0 7px 0 @red;
+}
+
+.notification-row .notification-background .notification .notification-content {
+  margin: 7px;
+}
+
+.notification-row .notification-background .notification .notification-content .time {
+  color: @subtext0;
+}
+
+.notification-row .notification-background .notification > *:last-child > * {
+  min-height: 3.4em;
+}
+
+.notification-row .notification-background .notification > *:last-child > * .notification-action {
+  border-radius: 7px;
+  background-color: @crust;
+  box-shadow: inset 0 0 0 1px @surface1;
+  margin: 7px;
+}
+
+.notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @surface0;
+}
+
+.notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @sapphire;
+}
+
+.notification-row .notification-background .close-button {
+  margin: 7px;
+  padding: 2px;
+  border-radius: 6.3px;
+  color: @base;
+  background-color: @maroon;
+}
+
+.close-button {
+  border-radius: 6.3px;
+}
+
+.notification-row .notification-background .close-button:hover {
+  background-color: @red;
+  color: @base;
+}
+
+.notification-row .notification-background .close-button:active {
+  background-color: @red;
+  color: @base;
+}
+
+.notification-row .notification-background:hover {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @overlay1;
+}
+
+.notification-row .notification-background:active {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @sapphire;
+}
+
+.notification.critical progress {
+  background-color: @red;
+}
+
+.notification.low progress,
+.notification.normal progress {
+  background-color: @blue;
+}
+
+
+
+/* Do not disturb */
+.control-center-dnd {
+  margin: 10px 0px;
+  border-radius: 8px;
+  background: @surface0;
+  border: 1px solid @surface1;
+  box-shadow: none;
+}
+
+.control-center-dnd:checked {
+  background: @surface0;
+}
+
+.control-center-dnd slider {
+  background: @surface1;
+  border-radius: 8px;
+}
+
+.widget-dnd {
+  margin: 0px;
+  font-size: 1.1rem;
+}
+
+.widget-dnd > switch {
+  font-size: initial;
+  border-radius: 8px;
+  background: @surface0;
+  border: 1px solid @surface1;
+  box-shadow: none;
+}
+
+.widget-dnd > switch:checked {
+  background: @surface0;
+}
+
+.widget-dnd > switch slider {
+  background: @surface1;
+  border-radius: 8px;
+  border: 1px solid @overlay0;
+}
+
+
+
+
+/* Widget buttons-grid */
+.widget-buttons-grid {
+  background-color: @mantle;
+  padding: 5px;
+  margin: 10px 0px;
+  box-shadow: inset 0 0 0 1px @surface1;
+  border-radius: 5px;
+}
+.widget-buttons-grid button {
+  padding: 8px 30px;
+  margin: 10px 10px;
+}
+.widget-buttons-grid label {
+  font-size: 20px;
+}
+
+
+
+
+
+/* MPRIS */
+.widget-mpris {
+  margin: 10px 0px;
+}
+
+.widget-mpris-player {
+    padding: 16px;
+    margin: 16px 20px;
+    background-color: @mpris-album-art-overlay;
+    border-radius: 12px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .65);
+}
+
+/*TODO adjust background-color*/
+/*.widget-mpris-player button {*/
+/*    color:@text;*/
+/*    background-color: @surface0;*/
+/*    text-shadow: none;*/
+/*    border-radius: 15px;*/
+/*    border: none;*/
+/*    padding: 5px;*/
+/*    margin: 5px;*/
+/*    transition: all 0.5s ease;*/
+/*}*/
+/**/
+/*.widget-mpris-player button:hover {*/
+/*    all: unset;*/
+/*    background: alpha(@surface0, 0.97);*/
+/*    text-shadow: none;*/
+/*    border-radius: 15px;*/
+/*    border: none; */
+/*    padding: 5px; */
+/*    margin: 5px;*/
+/*    transition: all 0.5s ease; */
+/*}*/
+/**/
+.widget-mpris-player .widget-mpris-album-art {
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+}
+
+.widget-mpris-player .widget-mpris-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.widget-mpris-player .widget-mpris-subtitle {
+    font-size: 1.1rem;
+}
+
+.widget-mpris-player > box > button:hover {
+    background-color: @mpris-button-hover;
+}
+
+
+
+/* Other widgets */
+trough highlight {
+    padding: 5px;
+    background: @blue;
+    color: @blue;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+    transition: all .7s ease;
+}
+
+.widget-volume {
+    background-color: @surface0;
+    padding: 8px 15px;
+    color: red;
+    margin: 10px 0px;
+    border-radius: 12px;
+}
+
+.widget-backlight {
+    background-color: transparent;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 12px;
+}

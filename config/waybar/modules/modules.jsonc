@@ -1,0 +1,211 @@
+// Modules configuration
+{
+  // TODO
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 5,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+  "network": {
+    "format-wifi": "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
+    "format-ethernet": "",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
+    "tooltip-format-wifi": "Signal Strenght: {signalStrength}%"
+  },
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  // TODO In progress
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": false,
+    "warp-on-scroll": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "\uDB81\uDD9F",
+      "2": "\uF121",
+      "3": "\uf42f",
+      "4": "",
+      "5": "\udb80\ude96"
+
+      //             "urgent": "",
+      //             "active": "",
+      //             "default": ""
+    }
+  },
+  "cpu": {
+    "format": "{usage}%",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "\uEFC5{}%"
+  },
+  "custom/system_usage": {
+    "interval": 30,
+    "exec": "~/.config/waybar/modules/system_usage.sh",
+    "on-click": "kitty bashtop"
+  },
+  "custom/gpu": {
+    "interval": 30,
+    "exec": "~/.config/waybar/modules/gpu.sh"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {volume}% {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "\uF130 {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pkill pavucontrol || pavucontrol -t 3",
+    "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle",
+    "on-click-middle": "wpctl set-mute @DEFAULT_SOURCE@ toggle"
+  },
+  "clock": {
+    "format": " {:%a %d %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": ".config/waybar/modules/power_menu.xml",
+    // Menu file in resources folder
+    "menu-actions": {
+      "logout": "hyprctl dispatch exit",
+      "suspend": "systemctl suspend",
+      //			"hibernate": "systemctl hibernate",
+      "reboot": "reboot",
+      "shutdown": "shutdown -a now"
+    }
+  },
+  "group/middle": {
+    "orientation": "inherit",
+    "modules": [
+      "clock#date",
+      "custom/swaync",// "clock",
+      "clock#time"
+    ],
+  },
+  "group/system_usage": {
+    "orientation": "inherit",
+    "modules": [
+      "cpu",
+      "memory",
+      "custom/gpu",
+    ],
+  },
+  "clock#date": {
+    "format": " <b>{:%Y-%m-%d}</b>",
+  },
+  "clock#time": {
+    "format": " <b>{:%H:%M}</b>",
+  },
+  "custom/notifications": {
+    "format": "󰣇"
+  },
+  "custom/swaync": {
+    "format": "󰣇",
+    "return-type": "json",
+    "exec-if": "command -v swaync-client",   /* Checks if swaync-client is installed  */
+    "exec": "swaync-client -swb",  /* Initial execution to fetch the state */
+    "on-click": "sleep 0.1 && swaync-client -t -sw",    /* Toggle SwayNC window  */
+    "on-click-right": "swaync-client -d -sw",   /* Toggle Do Not Disturb mode  */
+    "escape": true   /* Ensures HTML in icons is escaped  */
+  }
+}
