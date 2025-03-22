@@ -2,18 +2,7 @@
 
 {
     # Enable the X11 windowing system.
-#	services.xserver.enable = true;
-
-	# Enable the GNOME Desktop Environment.
-#	services.displayManager.sddm.enable = true;
-
-#	services.xserver = {
-#        enable = true;
-#        displayManager.sddm = {
-#            enable = true;
-#            wayland.enable = true;
-#        };
-#    };
+	services.xserver.enable = true;
 	services.xserver.displayManager.gdm.enable = true;
 	services.xserver.desktopManager.gnome.enable = true;
 
@@ -35,10 +24,11 @@
     environment.sessionVariables = {
         # For Hyprland with NVIDIA
         LIBVA_DRIVER_NAME = "nvidia";
-        XDG_SESSION_TYPE = "wayland";
         GBM_BACKEND = "nvidia-drm";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         NVD_BACKEND = "direct";
+        XDG_SESSION_TYPE = "wayland";
         WLR_NO_HARDWARE_CURSORS = "1";
+        NIXOS_OZONE_WL = "1";   # Optional, hint Electron apps to use Wayland:
   };
 }
