@@ -2,10 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, settings, ... }:
+{ inputs, config, pkgs, settings, ... }:
 
 {
 	imports = [
+	    inputs.home-manager.nixosModules.home-manager
+	    ./home.nix
 		./programs.nix
 		./hardware-configuration.nix
 		./system/grub.nix

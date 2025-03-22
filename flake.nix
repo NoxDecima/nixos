@@ -33,16 +33,16 @@
 				};
 			};
 		};
-		homeConfigurations = {
-			nox = home-manager.lib.homeManagerConfiguration {
-				inherit pkgs;
-				system = settings.system;
-				modules = [ ./home.nix ];
-				extraSpecialArgs = {
-			        inherit inputs;
-					inherit settings;
-				};
-			};
-		};
+#		homeConfigurations = {
+#			nox = home-manager.lib.homeManagerConfiguration {
+#				inherit pkgs;
+#				system = settings.system;
+#				modules = [ ./home.nix ];
+#				extraSpecialArgs = {
+#			        inherit inputs;
+#					inherit settings;
+#				};
+#			};
+#		};
 	};
 }
