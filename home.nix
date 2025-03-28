@@ -12,6 +12,7 @@
         ".config/swaync".source = ./config/swaync;
         ".config/waybar".source = ./config/waybar;
         ".config/wofi".source = ./config/wofi;
+        ".config/kitty".source = ./config/kitty;
       };
       sessionVariables = { };
     };
