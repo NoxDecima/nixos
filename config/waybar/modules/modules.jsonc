@@ -180,27 +180,27 @@
       "clock#date",
       "custom/swaync",// "clock",
       "clock#time"
-    ],
+    ]
   },
   "group/system_usage": {
     "orientation": "inherit",
     "modules": [
       "cpu",
       "memory",
-      "custom/gpu",
-    ],
+      "custom/gpu"
+    ]
   },
   "clock#date": {
-    "format": " <b>{:%Y-%m-%d}</b>",
+    "format": " <b>{:%Y-%m-%d}</b>"
   },
   "clock#time": {
-    "format": " <b>{:%H:%M}</b>",
+    "format": " <b>{:%H:%M}</b>"
   },
   "custom/notifications": {
-    "format": "󰣇"
+    "format": "\uF313"
   },
   "custom/swaync": {
-    "format": "󰣇",
+    "format": "\uF313",
     "return-type": "json",
     "exec-if": "command -v swaync-client",   /* Checks if swaync-client is installed  */
     "exec": "swaync-client -swb",  /* Initial execution to fetch the state */
