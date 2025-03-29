@@ -1,4 +1,4 @@
-{ pkgs, settings, ... }:
+{ inputs, pkgs, settings, ... }:
 
 {
     environment.systemPackages = with pkgs; [
@@ -12,6 +12,9 @@
         thunderbird
         jetbrains.pycharm-professional
 
+        # Browser
+        inputs.zen-browser.packages."${system}".default # beta
+
         # NeoVim
         neovim
         fzf
@@ -22,5 +25,7 @@
 
         # Notes
         obsidian
+
+        vesktop
 	];
 }
