@@ -33,4 +33,8 @@
       enable = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia
+  ];
 }

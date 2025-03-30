@@ -13,7 +13,7 @@
         jetbrains.pycharm-professional
 
         # Browser
-        inputs.zen-browser.packages."${system}".default # beta
+        inputs.zen-browser.packages."${settings.system}".default # beta
 
         # NeoVim
         neovim
@@ -25,6 +25,12 @@
 
         # Notes
         obsidian
+
+        # Music
+        spotube
+
+        # Audio control
+        pavucontrol
 
         vesktop
 	];
