@@ -6,6 +6,7 @@
 
 {
 	imports = [
+	    ./audio.nix
 		./programs.nix
 		./hardware-configuration.nix
 		./system/grub.nix

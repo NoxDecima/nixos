@@ -32,6 +32,9 @@
         # Audio control
         pavucontrol
 
+        # Disk space analysis
+        baobab
+
         vesktop
 	];
 }
