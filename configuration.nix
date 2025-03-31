@@ -6,12 +6,12 @@
 
 {
 	imports = [
-	    ./audio.nix
 		./programs.nix
 		./hardware-configuration.nix
 		./system/grub.nix
 		./system/hyprland.nix
 		./system/nvidia.nix
+	    ./system/audio.nix
 	];
 
 	nixpkgs.config.allowUnfree = true;
