@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  # These jack pin overwrites were created via hdajackretask
+  # These disable the Jack detection on the green stereo outputs in the front and back of the onboard soundcard.
+  # This resolves an issue that prevents the back stereo from working on this specific motherboard.
   hardware.firmware = [
     (pkgs.writeTextDir "/lib/firmware/hda-jack-retask.fw" ''
 [codec]
