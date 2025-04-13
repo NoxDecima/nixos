@@ -35,6 +35,9 @@
         # Disk space analysis
         baobab
 
+        # PDF reader / editor
+        evince
+
         vesktop
 	];
 }
