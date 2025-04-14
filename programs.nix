@@ -27,7 +27,7 @@
         obsidian
 
         # Music
-        spotube
+        inputs.nixpkgs-unstable.legacyPackages."${settings.system}".spotube
 
         # Audio control
         pavucontrol
