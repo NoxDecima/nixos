@@ -29,16 +29,21 @@
 			nixos = lib.nixosSystem {
 				system = settings.system;
 				modules = [
-				  ./configuration.nix
-#				  home-manager.nixosModules.home-manager
-#                  {
-#                    home-manager.useGlobalPkgs = true;
-#                    home-manager.useUserPackages = true;
-#                    home-manager.users.${settings.userName} = import ./home.nix {
-#                        inherit inputs;
-#                        inherit settings;
-#                    };
-#                  }
+                    ./configuration.nix
+                    home-manager.nixosModules.home-manager
+                    {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.${settings.userName} = {
+                            imports = [
+                                ./home.nix
+                            ];
+                        };
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            inherit settings;
+                        };
+                    }
 				];
 				specialArgs = {
 			        inherit inputs;
@@ -46,17 +51,5 @@
 				};
 			};
 		};
-
-		homeConfigurations.${settings.userName} = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-                ./home.nix
-                inputs.catppuccin.homeManagerModules.catppuccin
-            ];
-            specialArgs = {
-                inherit inputs;
-                inherit settings;
-            };
-        };
 	};
 }
