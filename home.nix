@@ -1,6 +1,10 @@
 { settings, ... }:
 
 {
+    imports = [
+		./home/gtk.nix
+	];
+
     home = {
       username = settings.userName;
       homeDirectory = "/home/${settings.userName}";

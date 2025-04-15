@@ -8,12 +8,13 @@
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 		zen-browser.url = "github:0xc000022070/zen-browser-flake";
 		hyprland.url = "github:hyprwm/Hyprland";
+		catppuccin.url = "github:catppuccin/nix";
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ...}:
 	let 
 		settings = {
-			userName = "nox"; # TODO: use this
+			userName = "nox";
 			system = "x86_64-linux";
 			profile = "default"; # TODO: use this
 			timezone = "Europe/Amsterdam"; # TODO: use this
@@ -29,15 +30,15 @@
 				system = settings.system;
 				modules = [
 				  ./configuration.nix
-				  home-manager.nixosModules.home-manager
-                  {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.users.${settings.userName} = import ./home.nix {
-                        inherit inputs;
-                        inherit settings;
-                    };
-                  }
+#				  home-manager.nixosModules.home-manager
+#                  {
+#                    home-manager.useGlobalPkgs = true;
+#                    home-manager.useUserPackages = true;
+#                    home-manager.users.${settings.userName} = import ./home.nix {
+#                        inherit inputs;
+#                        inherit settings;
+#                    };
+#                  }
 				];
 				specialArgs = {
 			        inherit inputs;
@@ -45,5 +46,17 @@
 				};
 			};
 		};
+
+		homeConfigurations.${settings.userName} = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+                ./home.nix
+                inputs.catppuccin.homeManagerModules.catppuccin
+            ];
+            specialArgs = {
+                inherit inputs;
+                inherit settings;
+            };
+        };
 	};
 }
