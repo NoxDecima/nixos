@@ -3,8 +3,16 @@
 {
     # Enable the X11 windowing system.
 	services.xserver.enable = true;
-	services.xserver.displayManager.gdm.enable = true;
-	services.xserver.displayManager.gdm.wayland = true;
+
+	# GDM
+	services.xserver.displayManager.gdm = {
+        enable = true;
+        wayland = true;
+    };
+
+	# TODO: enable capslock by default
+	# TODO: set a XCursor
+
 
     # services.xserver.desktopManager.gnome.enable = true;
 
@@ -33,15 +41,6 @@
         extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
         config.common.default = "*";
     };
-
-#    environment.sessionVariables = {
-#        # For Hyprland with NVIDIA
-#        LIBVA_DRIVER_NAME = "nvidia";
-#        GBM_BACKEND = "nvidia-drm";
-#        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-#        NVD_BACKEND = "direct";
-#          # Optional, hint Electron apps to use Wayland:
-#  };
 
     # Add this to your configuration.nix or the appropriate module
     environment.sessionVariables = {

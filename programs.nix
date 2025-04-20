@@ -6,11 +6,21 @@
 	    git
 	    gcc
 
+	    btop
+
 	    # Shell
         kitty
 
         thunderbird
         jetbrains.pycharm-professional
+
+        # Work
+        qgis
+        slack
+        google-cloud-sdk
+
+        gnome-clocks
+
 
         # Browser
         inputs.zen-browser.packages."${settings.system}".default # beta
@@ -35,8 +45,9 @@
         # Disk space analysis
         baobab
 
-        # PDF reader / editor
+        # PDF reader / Image viewer
         evince
+        loupe
 
         vesktop
 	];
