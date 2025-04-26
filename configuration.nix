@@ -12,6 +12,7 @@
 		./system/hyprland.nix
 		./system/nvidia.nix
 	    ./system/audio.nix
+	    ./system/nextcloud.nix
 	];
 
 	nixpkgs.config.allowUnfree = true;
