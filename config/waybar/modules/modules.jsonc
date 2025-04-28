@@ -121,7 +121,7 @@
   "custom/system_usage": {
     "interval": 30,
     "exec": "~/.config/waybar/modules/system_usage.sh",
-    "on-click": "kitty bashtop"
+    "on-click": "kitty btop"
   },
   "custom/gpu": {
     "interval": 30,
