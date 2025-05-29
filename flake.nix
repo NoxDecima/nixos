@@ -27,32 +27,47 @@
 		};
 		lib = nixpkgs.lib;
 		pkgs = nixpkgs.legacyPackages.${settings.system};
+
+        # Helper function to create a configuration for a specific profile
+        mkSystem = profile: lib.nixosSystem {
+            system = settings.system;
+            modules = [
+                # Common configuration
+                # ./profiles/common/configuration.nix
+                # Profile-specific configuration
+                ./profile/${profile}/configuration.nix
+
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.${settings.userName} = {
+                        imports = [
+                            # Common home-manager config
+                            # ./profiles/common/home.nix
+                            # Profile-specific home-manager config
+                            ./profile/${profile}/home.nix
+                        ];
+                    };
+                    home-manager.extraSpecialArgs = {
+                        inherit inputs;
+                        inherit settings;
+                        inherit profile;
+                    };
+                }
+            ];
+            specialArgs = {
+                inherit inputs;
+                inherit settings;
+                inherit profile;
+            };
+        };
 	in {
-		nixosConfigurations = {
-			nixos = lib.nixosSystem {
-				system = settings.system;
-				modules = [
-                    ./configuration.nix
-                    home-manager.nixosModules.home-manager
-                    {
-                        home-manager.useGlobalPkgs = true;
-                        home-manager.useUserPackages = true;
-                        home-manager.users.${settings.userName} = {
-                            imports = [
-                                ./home.nix
-                            ];
-                        };
-                        home-manager.extraSpecialArgs = {
-                            inherit inputs;
-                            inherit settings;
-                        };
-                    }
-				];
-				specialArgs = {
-			        inherit inputs;
-					inherit settings;
-				};
-			};
-		};
+        nixosConfigurations = {
+            # Your default configuration becomes "desktop"
+            desktop = mkSystem "nox-desktop";
+            # Add your work profile
+            work = mkSystem "nox-work";
+        };
 	};
 }
