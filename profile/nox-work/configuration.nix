@@ -18,7 +18,7 @@
 
 	nixpkgs.config.allowUnfree = true;
 
-	networking.hostName = "nixos"; # Define your hostname.
+	networking.hostName = "nox-work"; # Define your hostname.
 
 	# Enable networking
 	networking.networkmanager.enable = true;
