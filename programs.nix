@@ -49,6 +49,6 @@
         evince
         loupe
 
-        vesktop
+        discord
 	];
 }

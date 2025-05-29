@@ -10,3 +10,10 @@ git clone git@github.com/NoxDecima/nixos.com
 nixos-rebuild switch --flake .
 ```
 
+
+
+## Update
+```sh
+sudo nix flake update
+sudo nixos-rebuild switch --flake .
+```

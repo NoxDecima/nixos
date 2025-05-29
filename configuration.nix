@@ -13,7 +13,7 @@
 		./system/nvidia.nix
 	    ./system/audio.nix
 	    ./system/nextcloud.nix
-	    ./system/update.nix
+#	    ./system/update.nix
 	];
 
 	nixpkgs.config.allowUnfree = true;
