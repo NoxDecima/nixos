@@ -6,15 +6,23 @@
 
 {
 	imports = [
-		./programs.nix
 		./hardware-configuration.nix
-		./system/grub.nix
-		./system/hyprland.nix
-		./system/nvidia.nix
-	    ./system/audio.nix
-	    ./system/nextcloud.nix
+		../../programs.nix
+		../../system/hyprland.nix
+		../../system/nvidia.nix
+	    ../../system/audio.nix
+	    ../../system/nextcloud.nix
 #	    ./system/update.nix
 	];
+
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+        theme = ../../config/grub/themes/catppuccin-mocha-grub-theme;
+    };
 
 	nixpkgs.config.allowUnfree = true;
 
