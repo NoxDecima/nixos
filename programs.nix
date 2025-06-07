@@ -50,5 +50,8 @@
         loupe
 
         discord
+
+        # NordVPN client
+        wgnord
 	];
 }
