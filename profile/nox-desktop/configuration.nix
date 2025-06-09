@@ -12,6 +12,7 @@
 		../../system/nvidia.nix
 	    ../../system/audio.nix
 	    ../../system/nextcloud.nix
+        ../../system/font.nix
 #	    ../../system/update.nix
 	];
 
@@ -52,7 +53,7 @@
 	services.printing.enable = true;
 
 	# Enable sound with pipewire.
-	hardware.pulseaudio.enable = false;
+	services.pulseaudio.enable = false;
 	security.rtkit.enable = true;
 	services.pipewire = {
 	  enable = true;
@@ -108,15 +109,6 @@
 	# networking.firewall.allowedUDPPorts = [ ... ];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
-
-
-
-
-	# Fonts
-	fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) # TODO: fix this
-      jetbrains-mono
-    ];
 
     # Virtualization
     virtualisation.podman.enable = true;

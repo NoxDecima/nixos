@@ -2,9 +2,9 @@
 	description = "System configuration";
 
 	inputs = {
-		nixpkgs.url = "nixpkgs/nixos-24.11";
+		nixpkgs.url = "nixpkgs/nixos-25.05";
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-        home-manager.url = "github:nix-community/home-manager/release-24.11";
+        home-manager.url = "github:nix-community/home-manager/release-25.05";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 		zen-browser.url = "github:0xc000022070/zen-browser-flake";
         hyprland = {
