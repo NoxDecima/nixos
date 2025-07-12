@@ -13,6 +13,9 @@
 
         thunderbird
         jetbrains.pycharm-professional
+        python314
+	    # JS
+	    nodejs_24
 
         # Work
         qgis
