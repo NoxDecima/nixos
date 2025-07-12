@@ -53,5 +53,8 @@
 
         # NordVPN client
         wgnord
+
+        # Language learning
+        anki-bin
 	];
 }
