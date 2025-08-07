@@ -10,9 +10,9 @@
 		../../programs.nix
 		../../system/hyprland.nix
 		../../system/nvidia.nix
-	    ../../system/audio.nix
 	    ../../system/nextcloud.nix
 	    ../../system/font.nix
+	    ../../system/bluetooth.nix
 #	    ./system/update.nix
 	];
 
