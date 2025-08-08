@@ -130,15 +130,15 @@
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
     "format": "{icon} {volume}% {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {format_source}",
+    "format-bluetooth": "{icon}\uF294 {volume}% {format_source}",
+    "format-bluetooth-muted": "\uF466 {format_source}",
+    "format-muted": "\uF466 {format_source}",
     "format-source": "\uF130 {volume}%",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "",
-      "hands-free": "",
-      "headset": "",
+      "hands-free": "\uF025",
+      "headset": "\uF025",
       "phone": "",
       "portable": "",
       "car": "",
