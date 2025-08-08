@@ -28,7 +28,7 @@
     "tooltip-format-disconnected": "MPD (disconnected)"
   },
   "network": {
-    "format-wifi": "<span size='13000' foreground='#f5e0dc'> </span>",
+    "format-wifi": "",
     "format-ethernet": "",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",

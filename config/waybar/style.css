@@ -32,6 +32,7 @@ tooltip {
 #custom-power,
 #network,
 #system_usage,
+#battery,
 #pulseaudio{
     padding: 0rem 1rem;
     border-radius: 1rem;
@@ -108,6 +109,10 @@ tooltip {
 }
 #memory {
     padding: 0 10px;
+}
+
+#network {
+    color: @blue;
 }
 
 #custom-power {
