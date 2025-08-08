@@ -29,10 +29,9 @@ tooltip {
 #workspaces,
 #tray,
 #middle,
-#custom-power,
 #network,
 #system_usage,
-#battery,
+#power,
 #pulseaudio{
     padding: 0rem 1rem;
     border-radius: 1rem;
@@ -113,9 +112,5 @@ tooltip {
 
 #network {
     color: @blue;
-}
-
-#custom-power {
-    color: @red;
 }
 

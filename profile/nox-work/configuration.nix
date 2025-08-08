@@ -13,6 +13,7 @@
 	    ../../system/nextcloud.nix
 	    ../../system/font.nix
 	    ../../system/bluetooth.nix
+	    ../../system/power-profiles.nix
 #	    ./system/update.nix
 	];
 

@@ -67,9 +67,9 @@
     "tooltip": true,
     "format-icons": {
       "default": "",
-      "performance": "",
-      "balanced": "",
-      "power-saver": ""
+      "performance": " ",
+      "balanced": " ",
+      "power-saver": " "
     }
   },
   "battery": {
@@ -80,7 +80,7 @@
     },
     "format": "{capacity}% {icon}",
     "format-full": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
+    "format-charging": "{capacity}% \uDB80\uDC84",
     "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
     // "format-good": "", // An empty format will hide the module
@@ -113,19 +113,17 @@
   },
   "cpu": {
     "format": "{usage}%",
-    "tooltip": false
+    "tooltip": true,
+    "on-click": "kitty btop"
   },
   "memory": {
-    "format": "\uEFC5{}%"
-  },
-  "custom/system_usage": {
-    "interval": 30,
-    "exec": "~/.config/waybar/modules/system_usage.sh",
+    "format": "\uEFC5{}%",
     "on-click": "kitty btop"
   },
   "custom/gpu": {
     "interval": 30,
-    "exec": "~/.config/waybar/modules/gpu.sh"
+    "exec": "~/.config/waybar/modules/gpu.sh",
+    "on-click": "kitty nvtop"
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
@@ -188,6 +186,13 @@
       "cpu",
       "memory",
       "custom/gpu"
+    ]
+  },
+  "group/power": {
+    "orientation": "inherit",
+    "modules": [
+      "power-profiles-daemon",
+      "battery"
     ]
   },
   "clock#date": {

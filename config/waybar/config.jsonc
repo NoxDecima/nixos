@@ -15,19 +15,10 @@
         "group/middle"
     ],
     "modules-right": [
-        // TODO "mpd",
-
         "tray",
-	"group/system_usage",
-        //"custom/system_usage",
-//        "cpu",
-//        "memory",
+        "group/system_usage",
         "network",
         "pulseaudio",
-        "temperature",
-        "backlight",
-        "power-profiles-daemon",
-        "battery"
-        // "custom/power"
+        "group/power"
     ]
 }
