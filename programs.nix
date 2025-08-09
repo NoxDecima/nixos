@@ -59,6 +59,9 @@
 
         # Language learning
         anki-bin
+
+        # WIFI applet
+        networkmanagerapplet
 	];
 
     xdg.mime.defaultApplications = {
