@@ -14,6 +14,7 @@
 	    ../../system/font.nix
 	    ../../system/bluetooth.nix
 	    ../../system/power-profiles.nix
+        ../../system/virtualization.nix
 #	    ./system/update.nix
 	];
 
@@ -113,9 +114,6 @@
 	# networking.firewall.allowedUDPPorts = [ ... ];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
-
-    # Virtualization
-    virtualisation.podman.enable = true;
 
 
 	# This value determines the NixOS release from which the default

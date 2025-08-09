@@ -13,6 +13,7 @@
 	    ../../system/audio.nix
 	    ../../system/nextcloud.nix
         ../../system/font.nix
+	    ../../system/virtualization.nix
 #	    ../../system/update.nix
 	];
 
@@ -109,10 +110,6 @@
 	# networking.firewall.allowedUDPPorts = [ ... ];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
-
-    # Virtualization
-    virtualisation.podman.enable = true;
-
 
 	# This value determines the NixOS release from which the default
 	# settings for stateful data, like file locations and database versions
