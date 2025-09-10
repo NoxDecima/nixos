@@ -54,7 +54,7 @@
 
         discord
 
-        # NordVPN client
+        # NordVPN client (Additional NixOS setup steps: https://kenshin.ninja/p/wgnord-nixos-nordvpn/)
         wgnord
 
         # Language learning
