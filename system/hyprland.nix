@@ -36,10 +36,20 @@
 	    nautilus
 	];
 
-    xdg.portal = {
-        enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-        config.common.default = "*";
+    xdg = {
+        portal = {
+            enable = true;
+            wlr.enable = false;
+            extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+            config.common.default = "*";
+        };
+        mime = {
+            defaultApplications = {
+                "text/html" = [ "zen.desktop" ];
+                "x-scheme-handler/http" = [ "zen.desktop" ];
+                "x-scheme-handler/https" = [ "zen.desktop" ];
+            };
+        };
     };
 
     # Add this to your configuration.nix or the appropriate module
