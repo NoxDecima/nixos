@@ -48,6 +48,9 @@
                 "text/html" = [ "zen.desktop" ];
                 "x-scheme-handler/http" = [ "zen.desktop" ];
                 "x-scheme-handler/https" = [ "zen.desktop" ];
+                "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+                "x-scheme-handler/file" = [ "org.gnome.Nautilus.desktop" ];
+                "x-scheme-handler/trash" = [ "org.gnome.Nautilus.desktop" ];
             };
         };
     };
