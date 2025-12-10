@@ -14,6 +14,7 @@
 	    ../../system/nextcloud.nix
         ../../system/font.nix
 	    ../../system/virtualization.nix
+        ../../system/python-dev.nix
 #	    ../../system/update.nix
 	];
 

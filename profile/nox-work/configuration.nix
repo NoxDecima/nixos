@@ -15,6 +15,7 @@
 	    ../../system/bluetooth.nix
 	    ../../system/power-profiles.nix
         ../../system/virtualization.nix
+        ../../system/python-dev.nix
 #	    ./system/update.nix
 	];
 
