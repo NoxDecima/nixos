@@ -3,6 +3,7 @@
 {
     imports = [
 		../../home/gtk.nix
+		../../home/inputrc.nix
 	];
 
     home = {
