@@ -69,7 +69,6 @@ tooltip {
 
 /* swaync */
 #custom-swaync {
-   background-color: @base;
    padding: 0rem 0.5rem;
    margin: 0rem 1rem;
    color: @surface0;
@@ -85,19 +84,26 @@ tooltip {
 }
 
 #custom-swaync.notification,
-#custom-swaync.dnd-notification, 
-#custom-swaync.inhibited-notification,
-#custom-swaync.dnd-inhibited-notification {
+#custom-swaync.inhibited-notification{
     background-color: @maroon;
 }
 
 #custom-swaync.notification:hover,
-#custom-swaync.dnd-notification:hover,
-#custom-swaync.inhibited-notification:hover,
-#custom-swaync.dnd-inhibited-notification:hover  {
+#custom-swaync.inhibited-notification:hover {
     background-color: @flamingo;
 }
 
+#custom-swaync.dnd-none,
+#custom-swaync.dnd-notification,
+#custom-swaync.dnd-inhibited-notification  {
+    background-color: @overlay0;
+}
+
+#custom-swaync.dnd-none:hover,
+#custom-swaync.dnd-inhibited-notification:hover,
+#custom-swaync.dnd-notification:hover {
+    background-color: @overlay2;
+}
 
 #pulseaudio {
     color: @green;
