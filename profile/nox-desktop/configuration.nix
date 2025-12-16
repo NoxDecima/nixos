@@ -15,6 +15,7 @@
         ../../system/font.nix
 	    ../../system/virtualization.nix
         ../../system/python-dev.nix
+        ../../system/rust-dev.nix
 #	    ../../system/update.nix
 	];
 
