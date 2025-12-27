@@ -17,6 +17,7 @@
         ../../system/virtualization.nix
         ../../system/python-dev.nix
         ../../system/rust-dev.nix
+        ../../system/usb-drive.nix
 #	    ./system/update.nix
 	];
 

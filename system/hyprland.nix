@@ -26,6 +26,8 @@
     services.hypridle.enable = true;
     programs.hyprlock.enable = true;
 
+    security.polkit.enable = true;
+
     environment.systemPackages = with pkgs; [
 	    hyprpicker
 	    hyprpaper
@@ -34,6 +36,7 @@
 	    swaynotificationcenter
 	    wofi
 	    nautilus
+        hyprpolkitagent
 	];
 
     xdg = {
