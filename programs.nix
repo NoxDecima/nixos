@@ -41,6 +41,9 @@ in
         # Notes
         obsidian
 
+        # Office
+        libreoffice
+
         # Music
         spotube
 
