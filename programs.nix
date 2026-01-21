@@ -33,6 +33,10 @@ in
         # NeoVim
         neovim
         fzf
+        lazygit
+        tree-sitter
+        ripgrep
+        fd
 
         # Games
         lutris
