@@ -75,5 +75,6 @@ in
 
     xdg.mime.defaultApplications = {
       "inode/directory" = "org.gnome.Nautilus.desktop";
+      "application/pdf" = "org.gnome.Evince.desktop";
     };
 }
