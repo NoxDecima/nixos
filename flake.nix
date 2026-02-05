@@ -15,6 +15,7 @@
           inputs.nixpkgs.follows = "nixpkgs";
         };
 		catppuccin.url = "github:catppuccin/nix";
+		voxd.url = "path:./flakes/voxd";
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ...}:
