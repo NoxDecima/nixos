@@ -1,6 +1,13 @@
 { inputs, pkgs, settings, ... }:
 let
     spotube = pkgs.callPackage (import ./flakes/spotube.nix) {};
+
+    unstable = import inputs.nixpkgs-unstable {
+        system = settings.system;
+        config = {
+          allowUnfree = true;
+        };
+    };
 in
 {
     environment.systemPackages = with pkgs; [
@@ -23,8 +30,11 @@ in
         qgis
         slack
         google-cloud-sdk
+        unstable.claude-code
 
+        # Utils
         gnome-clocks
+        # TODO add a calculator
 
 
         # Browser

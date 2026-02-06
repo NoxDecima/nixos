@@ -11,7 +11,7 @@ in
   environment.systemPackages = with pkgs; [
     uv
     python314
-    unstable.jetbrains.pycharm-professional
+    unstable.jetbrains.pycharm
 #    (writeShellScriptBin "patched-python" ''
 #  export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
 #  exec ${python3}/bin/python "$@"
