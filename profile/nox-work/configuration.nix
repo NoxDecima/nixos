@@ -19,6 +19,7 @@
         ../../system/rust-dev.nix
         ../../system/usb-drive.nix
         ../../system/voxd.nix
+        ../../system/tailscale.nix
 #	    ./system/update.nix
 	];
 
