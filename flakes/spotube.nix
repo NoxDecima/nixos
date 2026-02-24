@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "spotube";
-  version = "5.1.0";
+  version = "5.1.1";
 
   src = finalAttrs.passthru.sources.${stdenv.hostPlatform.system};
 
@@ -87,19 +87,19 @@ stdenv.mkDerivation (finalAttrs: {
     {
       "aarch64-linux" = fetchArtifact {
         suffix = "linux-aarch64.deb";
-        hash = "sha256:11f1xkj78ikdbjyvh1zr4yfpmw8famfy1kd0n9llx0anjdwhivkg";
+        hash = "sha256:1c731sfn3fsjkldry95zfbkgn5rppv4zlw45cm0p87g4r49rwzss";
       };
       "x86_64-linux" = fetchArtifact {
         suffix = "linux-x86_64.deb";
-        hash = "sha256:15g61cb6gqyx6qic4cnhz84r6xzv9axab24w4hiqgj3f722qwaxl";
+        hash = "sha256:157dcwf58hqkan7vzg1p1il50vqvfdcvni6xq9ckib24y8fbaf4g";
       };
       "x86_64-darwin" = fetchArtifact {
         suffix = "macos-universal.dmg";
-        hash = "sha256:1p3snvvfra8n734xqd4i6z64qk3gqlvnd93awj3bqivczz56b89s";
+        hash = "sha256:18ppr4fl57r2hm0jaj7zzqwljzp33bskbfg3rmhqbd5hcqnisi4i";
       };
       "aarch64-darwin" = fetchArtifact {
         suffix = "macos-universal.dmg";
-        hash = "sha256:1p3snvvfra8n734xqd4i6z64qk3gqlvnd93awj3bqivczz56b89s";
+        hash = "sha256:18ppr4fl57r2hm0jaj7zzqwljzp33bskbfg3rmhqbd5hcqnisi4i";
       };
     };
 
