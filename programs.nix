@@ -69,6 +69,7 @@ in
 
         # PDF reader / Image viewer
         evince
+        xournalpp
         loupe
 
         discord
