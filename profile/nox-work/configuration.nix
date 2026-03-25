@@ -20,6 +20,7 @@
         ../../system/usb-drive.nix
         ../../system/voxd.nix
         ../../system/tailscale.nix
+        ../../system/printing.nix
 #	    ./system/update.nix
 	];
 
