@@ -18,70 +18,71 @@ in
 	    btop
 
 	    # Shell
-        kitty
+      kitty
 
-        thunderbird
+      thunderbird
 
 
 	    # JS
 	    nodejs_24
 
-        # Work
-        qgis
-        slack
-        google-cloud-sdk
-        unstable.claude-code
+      # Work
+      qgis
+      slack
+      google-cloud-sdk
+      inputs.claude-code.packages."${settings.system}".default
 
-        # Utils
-        gnome-clocks
-        # TODO add a calculator
+      # Utils
+      gnome-clocks
+      # TODO add a calculator
 
 
-        # Browser
-        inputs.zen-browser.packages."${settings.system}".default # beta
+      # Browser
+      inputs.zen-browser.packages."${settings.system}".default # beta
 
-        # NeoVim
-        neovim
-        fzf
-        lazygit
-        tree-sitter
-        ripgrep
-        fd
+      # NeoVim
+      neovim
+      fzf
+      lazygit
+      tree-sitter
+      ripgrep
+      fd
 
-        # Games
-        lutris
-        steam
+      # Games
+      lutris
+      steam
 
-        # Notes
-        obsidian
+      # Notes
+      obsidian
 
-        # Office
-        libreoffice
+      # Office
+      libreoffice
 
-        # Music
-        spotube
+      # Music
+      spotube
 
-        # Audio control
-        pavucontrol
+      # Audio control
+      pavucontrol
 
-        # Disk space analysis
-        baobab
+      # Disk space analysis
+      baobab
 
-        # PDF reader / Image viewer
-        evince
-        xournalpp
-        loupe
+      # PDF reader / Image viewer
+      evince
+      xournalpp
+      loupe
 
-        discord
+      discord
 
-        # NordVPN client (Additional NixOS setup steps: https://kenshin.ninja/p/wgnord-nixos-nordvpn/)
-        wgnord
+      # NordVPN client (Additional NixOS setup steps: https://kenshin.ninja/p/wgnord-nixos-nordvpn/)
+      wgnord
 
-        # Language learning
-        anki-bin
+      # Language learning
+      anki-bin
+      mpv
 
-        # WIFI applet
-        networkmanagerapplet
+      # WIFI applet
+      networkmanagerapplet
 	];
 
     xdg.mime.defaultApplications = {

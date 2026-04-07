@@ -15,6 +15,7 @@
           inputs.nixpkgs.follows = "nixpkgs";
         };
 		catppuccin.url = "github:catppuccin/nix";
+		claude-code.url = "github:sadjow/claude-code-nix";
 		voxd.url = "path:./flakes/voxd";
 	};
 
