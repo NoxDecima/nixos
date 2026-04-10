@@ -20,6 +20,7 @@
         ../../system/voxd.nix
         ../../system/tailscale.nix
         ../../system/printing.nix
+        ../../system/input-method.nix
 #	    ../../system/update.nix
 	];
 
