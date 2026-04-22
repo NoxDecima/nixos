@@ -12,8 +12,9 @@
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
+    hardware.nvidia-container-toolkit.enable = true;
+
     environment.systemPackages = with pkgs; [
-        nvidia-container-toolkit
         podman-compose
         podman-tui
     ];
