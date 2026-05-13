@@ -21,6 +21,7 @@
         ../../system/tailscale.nix
         ../../system/printing.nix
         ../../system/input-method.nix
+        ../../system/clipboard.nix
 #	    ../../system/update.nix
 	];
 
