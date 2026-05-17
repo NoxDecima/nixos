@@ -1,4 +1,4 @@
-{ settings, ... }:
+{ config, settings, ... }:
 
 {
     imports = [
@@ -26,7 +26,8 @@
         ".config/waybar".source = ../../config/waybar;
         ".config/wofi".source = ../../config/wofi;
         ".config/kitty".source = ../../config/kitty;
-        ".config/nvim".source = ../../config/nvim;
+        ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/nvim";
       };
       sessionVariables = { };
     };
