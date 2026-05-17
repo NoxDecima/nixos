@@ -14,6 +14,7 @@
       file = {
         # Hyprland
         ".config/hypr/hypridle.conf".source = ../../config/hypr/hypridle.conf;
+        ".config/hypr/idle-suspend.sh".source = ../../config/hypr/idle-suspend.sh;
         ".config/hypr/hyprlock.conf".source = ../../config/hypr/hyprlock.conf;
         ".config/hypr/hyprland.conf".source = ../../config/hypr/hyprland.conf;
         ".config/hypr/hyprpaper.conf".source = ../../config/hypr/hyprpaper.conf;

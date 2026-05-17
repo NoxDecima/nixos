@@ -10,7 +10,10 @@
     "position": "top",
 
     // Modules
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": [
+      "hyprland/workspaces",
+      "custom/idle-toggle"
+    ],
     "modules-center": [
         "group/middle"
     ],

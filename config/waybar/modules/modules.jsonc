@@ -212,5 +212,13 @@
     "on-click": "sleep 0.1 && swaync-client -t -sw",    /* Toggle SwayNC window  */
     "on-click-right": "swaync-client -d -sw",   /* Toggle Do Not Disturb mode  */
     "escape": true   /* Ensures HTML in icons is escaped  */
+  },
+  "custom/idle-toggle": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "bash ~/.config/waybar/modules/idle-toggle.sh status",
+    "on-click": "bash ~/.config/waybar/modules/idle-toggle.sh toggle",
+    "interval": 2,
+    "tooltip": true
   }
 }
