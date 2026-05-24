@@ -684,7 +684,9 @@ PanelWindow {
         spacing: Theme.Mocha.spaceSm
 
         Repeater {
-            model: Services.Notifications.activeToasts.slice(0, 3)
+            // Display oldest at top, newest at bottom. activeToasts is
+            // newest-first; take the 3 newest, then reverse for display.
+            model: Services.Notifications.activeToasts.slice(0, 3).reverse()
             delegate: Widgets.NCard {
                 entry: modelData
                 onDismissed: Services.Notifications.dismiss(modelData.id)
@@ -795,6 +797,9 @@ PanelWindow {
         Repeater {
             model: Services.Notifications.activeToasts.slice(0, 3)
 
+            // Display oldest at top, newest at bottom — see Task 2.4 note.
+            model: Services.Notifications.activeToasts.slice(0, 3).reverse()
+
             delegate: Item {
                 id: cell
                 Layout.fillWidth: true
@@ -872,7 +877,7 @@ git commit -m "Add toast auto-dismiss timer with priority timeouts"
 
 - [ ] **Step 1: Add the overflow pill**
 
-In `config/quickshell/Toasts.qml`, add after the `Repeater {...}` block, still inside the `ColumnLayout`:
+In `config/quickshell/Toasts.qml`, add BEFORE the `Repeater {...}` block (above the visible stack — older overflowed toasts conceptually live there), still inside the `ColumnLayout`:
 ```qml
 Rectangle {
     visible: Services.Notifications.activeToasts.length > 3
@@ -907,11 +912,11 @@ Rectangle {
 
 ```bash
 pkill swaync; pkill quickshell 2>/dev/null
-quickshell &
+quickshell -p /home/nox/nixos/config/quickshell/ &
 sleep 1
 for i in 1 2 3 4 5; do notify-send "Test $i" "body $i"; sleep 0.1; done
 ```
-Expected: 3 cards visible + a small `+ 2 more` pill below. Click the pill → overflow clears.
+Expected: a small `+ 2 more` pill ABOVE the stack of 3 visible cards. Click the pill → overflow clears (the 2 oldest are removed from activeToasts; only the 3 newest remain visible).
 
 ```bash
 pkill quickshell; swaync &
@@ -921,7 +926,7 @@ pkill quickshell; swaync &
 
 ```bash
 git add config/quickshell/Toasts.qml
-git commit -m "Add toast overflow +N pill"
+git commit -m "Add toast overflow +N pill" -- config/quickshell/Toasts.qml
 ```
 
 ---

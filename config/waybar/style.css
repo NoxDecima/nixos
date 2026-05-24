@@ -72,8 +72,9 @@ tooltip {
     color: @red
 }
 
-/* swaync */
-#custom-swaync {
+/* notifications — driven by Quickshell IPC (class names emitted by
+   Notifications.waybarLine(): "empty" / "has-notifs" / "dnd") */
+#custom-notifications {
    padding: 0rem 0.5rem;
    margin: 0rem 1rem;
    color: @surface0;
@@ -84,29 +85,23 @@ tooltip {
    transition: all 0.3s ease;
 }
 
-#custom-swaync:hover {
+#custom-notifications:hover {
   background-color: @lavender;
 }
 
-#custom-swaync.notification,
-#custom-swaync.inhibited-notification{
+#custom-notifications.has-notifs {
     background-color: @maroon;
 }
 
-#custom-swaync.notification:hover,
-#custom-swaync.inhibited-notification:hover {
+#custom-notifications.has-notifs:hover {
     background-color: @flamingo;
 }
 
-#custom-swaync.dnd-none,
-#custom-swaync.dnd-notification,
-#custom-swaync.dnd-inhibited-notification  {
+#custom-notifications.dnd {
     background-color: @overlay0;
 }
 
-#custom-swaync.dnd-none:hover,
-#custom-swaync.dnd-inhibited-notification:hover,
-#custom-swaync.dnd-notification:hover {
+#custom-notifications.dnd:hover {
     background-color: @overlay2;
 }
 

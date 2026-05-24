@@ -174,8 +174,9 @@ Each toggle props: `icon`, `label`, `active`, `warn`, `onClick`. States: default
 `Toasts.qml` is a separate layer-shell window, top-right, 12px from edge, below waybar.
 
 - Vertical column, 8px gap, up to 3 visible NCards
-- Stack grows downward (newest top, oldest bottom)
-- When >3 queued, oldest collapse to a `+N more` pill; click → opens panel
+- Oldest at top, newest at bottom — new notifications slide in at the bottom of the stack
+- When >3 queued, the *oldest beyond the 3-most-recent* collapse into a `+N more` pill **below** the stack — click → opens panel
+- Per-toast progress is held inside each delegate (per-delegate `Timer`), but saved to a `savedProgress` map on `Component.onDestruction` and restored on `Component.onCompleted`. This preserves countdown progress across Repeater delegate recreation when `activeToasts` changes.
 - Hover any toast → pause its progress bar
 - Swipe-right → dismiss
 - Click body → invoke default action + dismiss

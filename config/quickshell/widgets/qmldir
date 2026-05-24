@@ -1,0 +1,10 @@
+module widgets
+NCard 1.0 NCard.qml
+Toggle 1.0 Toggle.qml
+Slider 1.0 Slider.qml
+ToggleTile 1.0 ToggleTile.qml
+SliderTile 1.0 SliderTile.qml
+SessionTile 1.0 SessionTile.qml
+NotifList 1.0 NotifList.qml
+HeroMpris 1.0 HeroMpris.qml
+PlayerTabs 1.0 PlayerTabs.qml

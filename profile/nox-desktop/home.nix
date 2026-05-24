@@ -23,7 +23,8 @@
         ".config/hypr/hypr-config".source = ../../config/hypr/hypr-config;
 
         ".config/backgrounds".source = ../../config/backgrounds;
-        ".config/swaync".source = ../../config/swaync;
+        ".config/quickshell".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/quickshell";
         ".config/waybar".source = ../../config/waybar;
         ".config/wofi".source = ../../config/wofi;
         ".config/kitty".source = ../../config/kitty;

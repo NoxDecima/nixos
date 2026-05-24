@@ -176,7 +176,7 @@
     "orientation": "inherit",
     "modules": [
       "clock#date",
-      "custom/swaync",// "clock",
+      "custom/notifications",
       "clock#time"
     ]
   },
@@ -201,17 +201,18 @@
   "clock#time": {
     "format": " <b>{:%H:%M}</b>"
   },
+  // Driven by Quickshell IPC. `qs ipc call` finds the default-path instance
+  // because ~/.config/quickshell is a live mkOutOfStoreSymlink to the repo.
+  // The format is the static NixOS icon — the JSON's `text` field is ignored
+  // visually; only `class` (for CSS coloring) and `tooltip` are consumed.
   "custom/notifications": {
-    "format": "\uF313"
-  },
-  "custom/swaync": {
-    "format": "\uF313",
-    "return-type": "json",
-    "exec-if": "command -v swaync-client",   /* Checks if swaync-client is installed  */
-    "exec": "swaync-client -swb",  /* Initial execution to fetch the state */
-    "on-click": "sleep 0.1 && swaync-client -t -sw",    /* Toggle SwayNC window  */
-    "on-click-right": "swaync-client -d -sw",   /* Toggle Do Not Disturb mode  */
-    "escape": true   /* Ensures HTML in icons is escaped  */
+    "exec":           "qs ipc call notifications waybar",
+    "on-click":       "qs ipc call panel toggle",
+    "on-click-right": "qs ipc call notifications toggleDnd",
+    "signal":         8,
+    "return-type":    "json",
+    "format":         "",
+    "tooltip":        true
   },
   "custom/idle-toggle": {
     "format": "{}",

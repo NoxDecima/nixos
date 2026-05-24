@@ -1,0 +1,2 @@
+module theme
+singleton Mocha 1.0 Mocha.qml

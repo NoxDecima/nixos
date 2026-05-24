@@ -33,7 +33,8 @@
 	    hyprpaper
 	    hyprsunset
 	    hyprshot
-	    swaynotificationcenter
+	    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.quickshell
+	    brightnessctl
 	    wofi
 	    nautilus
         hyprpolkitagent
