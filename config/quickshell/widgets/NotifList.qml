@@ -93,14 +93,29 @@ Item {
         for (let i = 0; i < cardRepeater.count; i++) {
             const delegate = cardRepeater.itemAt(i)
             if (!delegate) continue
-            // delegate is the ColumnLayout; first child is the NCard.
-            const ncard = delegate.children[0]
-            if (ncard && ncard.entry?.id === id) {
+            // delegate is an Item with GroupCard + ncardWrap. We only support
+            // inline-reply focus on the ungrouped NCard (inside ncardWrap).
+            const ncard = root._findNCardWithId(delegate, id)
+            if (ncard) {
                 ncard.replyOpen = true
                 root._focusTextFieldIn(ncard)
                 return
             }
         }
+    }
+
+    function _findNCardWithId(node, id) {
+        if (!node) return null
+        if (node.entry !== undefined && node.entry?.id === id && node.canReply !== undefined) {
+            return node
+        }
+        const kids = node.children
+        if (!kids) return null
+        for (let i = 0; i < kids.length; i++) {
+            const found = root._findNCardWithId(kids[i], id)
+            if (found) return found
+        }
+        return null
     }
 
     function _focusTextFieldIn(node) {
@@ -123,20 +138,25 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.leftMargin: 4
+        anchors.rightMargin: 4
         spacing: Theme.Mocha.spaceSm
 
         Text {
-            text: `Notifications · ${root.count} new`
+            text: `NOTIFICATIONS · ${root.count} NEW`
             color: Theme.Mocha.subtext0
-            font.family: Theme.Mocha.fontFamily
-            font.pixelSize: Theme.Mocha.fontSm
+            font.family: Theme.Mocha.fontMono
+            font.pixelSize: 11
+            font.letterSpacing: 0.88
             Layout.fillWidth: true
         }
         Text {
-            text: " clear"   // trash + label;  = trash
-            color: Theme.Mocha.subtext0
+            text: " CLEAR ALL"
+            color: Theme.Mocha.overlay1
             font.family: Theme.Mocha.iconFamily
-            font.pixelSize: Theme.Mocha.fontSm
+            font.pixelSize: 11
+            font.letterSpacing: 0.88
+            visible: root.count > 0
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
@@ -189,74 +209,52 @@ Item {
             Repeater {
                 id: cardRepeater
                 model: root.displayRows
-                delegate: ColumnLayout {
+                delegate: Item {
                     Layout.fillWidth: true
-                    spacing: Theme.Mocha.spaceXs
+                    readonly property bool useGroup: modelData.type === "head" && (modelData.olderCount ?? 0) > 0
+                    implicitHeight: useGroup ? groupCard.implicitHeight : ncardWrap.implicitHeight
 
-                    NCard {
-                        Layout.fillWidth: true
-                        canReply: true
-                        entry: modelData.entry
-                        onDismissed: Services.Notifications.dismiss(modelData.entry.id)
-                        onActionInvoked: (actionId) => modelData.entry.notification?.invokeAction(actionId)
-                    }
-
-                    // Group pill: only on a "head" row with >=1 older entry
-                    Rectangle {
-                        visible: modelData.type === "head" && (modelData.olderCount ?? 0) > 0
-                        Layout.fillWidth: true
-                        implicitHeight: 22
-                        radius: Theme.Mocha.radiusSm
-                        color: Theme.Mocha.surface0
-
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.leftMargin: Theme.Mocha.spaceSm
-                            anchors.rightMargin: Theme.Mocha.spaceSm
-
-                            Text {
-                                Layout.fillWidth: true
-                                text: (root.expandedApp === modelData.appName
-                                       ? "collapse"
-                                       : `+ ${modelData.olderCount} more from ${modelData.appName}`)
-                                color: Theme.Mocha.subtext0
-                                font.family: Theme.Mocha.fontFamily
-                                font.pixelSize: Theme.Mocha.fontSm
+                    GroupCard {
+                        id: groupCard
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        visible: parent.useGroup
+                        head: modelData.entry
+                        older: modelData.older
+                        appName: modelData.appName
+                        expanded: root.expandedApp === modelData.appName
+                        onToggleExpand: {
+                            root.expandedApp = (root.expandedApp === modelData.appName)
+                                ? "" : modelData.appName
+                        }
+                        onClearGroup: {
+                            const ids = [modelData.entry.id]
+                            for (const o of (modelData.older ?? [])) {
+                                ids.push(o.id)
                             }
-                            Text {
-                                text: "Clear"
-                                color: Theme.Mocha.overlay1
-                                font.family: Theme.Mocha.fontFamily
-                                font.pixelSize: Theme.Mocha.fontSm
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        // Capture all IDs before any dismiss so the
-                                        // reactive update from dismiss() doesn't
-                                        // invalidate modelData mid-iteration.
-                                        const ids = [modelData.entry.id]
-                                        for (const o of (modelData.older ?? [])) {
-                                            ids.push(o.id)
-                                        }
-                                        for (const id of ids) {
-                                            Services.Notifications.dismiss(id)
-                                        }
-                                    }
-                                }
+                            for (const id of ids) {
+                                Services.Notifications.dismiss(id)
                             }
                         }
+                        onHeadDismissed: Services.Notifications.dismiss(modelData.entry.id)
+                        onOlderDismissed: (idx) => Services.Notifications.dismiss(modelData.older[idx].id)
+                    }
 
-                        // Pill body click (everything except the Clear text)
-                        // toggles expand/collapse.
-                        MouseArea {
+                    Item {
+                        id: ncardWrap
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        visible: !parent.useGroup
+                        implicitHeight: visible ? card.implicitHeight : 0
+                        NCard {
+                            id: card
                             anchors.fill: parent
-                            anchors.rightMargin: 60
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                root.expandedApp = (root.expandedApp === modelData.appName)
-                                    ? "" : modelData.appName
-                            }
+                            canReply: true
+                            entry: modelData.entry
+                            onDismissed: Services.Notifications.dismiss(modelData.entry.id)
+                            onActionInvoked: (actionId) => modelData.entry.notification?.invokeAction(actionId)
                         }
                     }
                 }
