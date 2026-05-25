@@ -100,8 +100,29 @@ Rectangle {
                 Layout.preferredHeight: 34
                 radius: 8
                 color: groupCard.appInfo.color
+                clip: true
+
+                // Prefer dbus app_icon image (from the newest entry); fall back to
+                // AppRegistry glyph. Background color stays from registry.
+                readonly property string imgSrc:
+                    Services.AppRegistry.resolveIconSource(groupCard.head?.appIcon ?? "")
+                readonly property bool useImage: appImg.status === Image.Ready
+
+                Image {
+                    id: appImg
+                    anchors.centerIn: parent
+                    width: parent.width - 8
+                    height: parent.height - 8
+                    source: parent.imgSrc
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    asynchronous: true
+                    visible: parent.useImage
+                }
+
                 Text {
                     anchors.centerIn: parent
+                    visible: !parent.useImage
                     text: groupCard.appInfo.icon
                     color: Theme.Mocha.base
                     font.family: Theme.Mocha.iconFamily

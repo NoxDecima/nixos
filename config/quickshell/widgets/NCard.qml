@@ -74,9 +74,33 @@ Rectangle {
             Layout.alignment: lowCompact ? Qt.AlignVCenter : Qt.AlignTop
             radius: lowCompact ? 6 : 8
             color: card.iconBg
+            clip: true
+
+            // Prefer dbus app_icon image; fall back to AppRegistry glyph.
+            // Critical (urgency=2) and lowCompact always use the glyph so the
+            // red-warning and dimmed-compact looks stay consistent.
+            readonly property string imgSrc:
+                (card.urgency === 2 || card.lowCompact)
+                    ? ""
+                    : Services.AppRegistry.resolveIconSource(card.entry?.appIcon ?? "")
+            readonly property bool useImage: appImg.status === Image.Ready
+
+            Image {
+                id: appImg
+                anchors.centerIn: parent
+                width: parent.width - 8
+                height: parent.height - 8
+                source: parent.imgSrc
+                fillMode: Image.PreserveAspectFit
+                smooth: true
+                asynchronous: true
+                visible: parent.useImage
+            }
+
             Text {
                 anchors.centerIn: parent
-                text: card.appInfo.icon ?? ""   // bell fallback
+                visible: !parent.useImage
+                text: card.appInfo.icon ?? ""
                 color: card.iconFg
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: lowCompact ? 13 : 16

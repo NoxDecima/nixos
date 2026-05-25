@@ -30,6 +30,7 @@ QtObject {
             const entry = {
                 id: notification.id,
                 appName: notification.appName,
+                appIcon: notification.appIcon ?? "",
                 summary: notification.summary,
                 body: notification.body,
                 image: notification.image,

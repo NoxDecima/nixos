@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import Quickshell
 import "../theme" as Theme
 
 QtObject {
@@ -55,4 +56,15 @@ QtObject {
 
     function iconFor(appName) { return lookup(appName).icon }
     function colorFor(appName) { return lookup(appName).color }
+
+    // Resolve a dbus notification's app_icon string to an Image source URL,
+    // or "" if it isn't usable. Accepts absolute file paths, file:// URLs,
+    // and freedesktop icon-theme names.
+    function resolveIconSource(appIcon) {
+        if (!appIcon || appIcon.length === 0) return ""
+        if (appIcon.startsWith("file://")) return appIcon
+        if (appIcon.startsWith("/")) return "file://" + appIcon
+        const p = Quickshell.iconPath(appIcon, true)
+        return p || ""
+    }
 }
