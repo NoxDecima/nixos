@@ -40,14 +40,18 @@ PanelWindow {
         spacing: Theme.Mocha.spaceSm
 
         Repeater {
-            // Display newest at top, oldest at bottom of the visible stack.
-            // activeToasts is already newest-first; no transformation needed.
-            model: Services.Notifications.activeToasts.slice(0, 3)
+            // Instantiate ALL active toasts (so every notif's Timer ticks even
+            // while it's queued behind the visible 3). Only the first 3 are
+            // visible; the rest are 0-height invisible cells whose timers
+            // expire them in the background, so the +N pill count drops over
+            // time without user intervention.
+            model: Services.Notifications.activeToasts
 
             delegate: Item {
                 id: cell
                 Layout.fillWidth: true
-                implicitHeight: card.implicitHeight
+                visible: index < 3
+                implicitHeight: visible ? card.implicitHeight : 0
 
                 property var entry: modelData
                 property int duration: toastWindow.timeoutFor(entry?.urgency ?? 1)
