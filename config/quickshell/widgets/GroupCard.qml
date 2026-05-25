@@ -120,7 +120,7 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     visible: !parent.useImage
-                    text: ""   // FA bell
+                    text: "\uF0F3"   // FA bell
                     color: Theme.Mocha.subtext0
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 16

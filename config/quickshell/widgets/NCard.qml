@@ -90,7 +90,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
                 visible: !parent.useImage
-                text: ""   // FA bell
+                text: "\uF0F3"   // FA bell
                 color: card.urgency === 2 ? Theme.Mocha.base : Theme.Mocha.subtext0
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: lowCompact ? 13 : 16
