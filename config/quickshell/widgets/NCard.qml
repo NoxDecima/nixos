@@ -62,23 +62,17 @@ Rectangle {
             elide: Text.ElideRight
         }
 
-        Item {
+        Text {
+            id: bodyText
             Layout.fillWidth: true
-            visible: bodyText.visible
-            implicitHeight: bodyText.implicitHeight
-
-            Text {
-                id: bodyText
-                anchors.fill: parent
-                visible: (card.entry?.body ?? "") !== ""
-                text: card.entry?.body ?? ""
-                color: Theme.Mocha.subtext1
-                font.family: Theme.Mocha.fontFamily
-                font.pixelSize: Theme.Mocha.fontSm
-                wrapMode: Text.WordWrap
-                maximumLineCount: 3
-                elide: Text.ElideRight
-            }
+            visible: (card.entry?.body ?? "") !== ""
+            text: card.entry?.body ?? ""
+            color: Theme.Mocha.subtext1
+            font.family: Theme.Mocha.fontFamily
+            font.pixelSize: Theme.Mocha.fontSm
+            wrapMode: Text.WordWrap
+            maximumLineCount: 3
+            elide: Text.ElideRight
 
             MouseArea {
                 anchors.fill: parent
