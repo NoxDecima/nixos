@@ -19,7 +19,7 @@ Rectangle {
 
         Rectangle {
             id: art
-            Layout.preferredWidth: 56; Layout.preferredHeight: 56
+            Layout.preferredWidth: 50; Layout.preferredHeight: 50
             radius: Theme.Mocha.radiusSm
             color: Theme.Mocha.surface0
             clip: true
@@ -48,7 +48,7 @@ Rectangle {
                 color: Theme.Mocha.text
                 font.family: Theme.Mocha.fontFamily
                 font.pixelSize: Theme.Mocha.fontMd
-                font.weight: Font.Medium
+                font.weight: Font.Bold
                 Layout.fillWidth: true
                 elide: Text.ElideRight
             }
