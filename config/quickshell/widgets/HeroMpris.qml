@@ -63,7 +63,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
                 visible: artImg.status !== Image.Ready
-                text: ""   // FA music
+                text: "\uF001"   // FA music
                 color: Theme.Mocha.base
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: 22
@@ -141,7 +141,7 @@ Rectangle {
                 color: prevMa.containsMouse ? Theme.Mocha.surface1 : Theme.Mocha.surface0
                 Text {
                     anchors.centerIn: parent
-                    text: ""   // FA step-backward
+                    text: "\uF048"   // FA step-backward
                     color: Theme.Mocha.text
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 11
@@ -164,7 +164,7 @@ Rectangle {
                 opacity: playMa.containsMouse ? 0.85 : 1.0
                 Text {
                     anchors.centerIn: parent
-                    text: hero.player?.playbackState === MprisPlaybackState.Playing ? "" : ""   // pause / play
+                    text: hero.player?.playbackState === MprisPlaybackState.Playing ? "\uF04C" : "\uF04B"   // pause / play
                     color: Theme.Mocha.base
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 12
@@ -186,7 +186,7 @@ Rectangle {
                 color: nextMa.containsMouse ? Theme.Mocha.surface1 : Theme.Mocha.surface0
                 Text {
                     anchors.centerIn: parent
-                    text: ""   // FA step-forward
+                    text: "\uF051"   // FA step-forward
                     color: Theme.Mocha.text
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 11
