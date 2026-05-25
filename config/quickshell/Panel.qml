@@ -21,6 +21,7 @@ PanelWindow {
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    WlrLayershell.namespace: "qs-panel"   // Hyprland layerrule target
 
     visible: isOpen
     exclusiveZone: 0
@@ -49,13 +50,18 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 12
         width: 640
-        height: 720
-        color: Theme.Mocha.mantle
-        opacity: 0.97
+        // Auto-size to content. MIN keeps the panel at least as tall as the
+        // left rail (where the session buttons end); MAX caps growth so the
+        // notification list scrolls inside its column when overflowing.
+        readonly property int minH: 500
+        readonly property int maxH: 720
+        height: Math.max(minH, Math.min(maxH, content.implicitHeight + 2 * Theme.Mocha.spaceMd))
+        color: Qt.rgba(0.117, 0.117, 0.180, 0.70)   // mantle @ 0.70 so the layer blur shows through
         radius: Theme.Mocha.radiusLg
         border.width: 1
         border.color: Theme.Mocha.surface0
         ColumnLayout {
+            id: content
             anchors.fill: parent
             anchors.margins: Theme.Mocha.spaceMd
             spacing: Theme.Mocha.spaceMd
