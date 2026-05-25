@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import "theme" as Theme
@@ -40,6 +41,7 @@ PanelWindow {
     }
 
     Rectangle {
+        id: surface
         anchors.fill: parent
         anchors.margins: 8
         color: Theme.Mocha.mantle
@@ -47,6 +49,7 @@ PanelWindow {
         radius: Theme.Mocha.radiusLg
         border.width: 1
         border.color: Theme.Mocha.surface0
+        layer.enabled: true
 
         ColumnLayout {
             anchors.fill: parent
@@ -80,5 +83,17 @@ PanelWindow {
                 }
             }
         }
+    }
+
+    MultiEffect {
+        source: surface
+        anchors.fill: surface
+        shadowEnabled: true
+        shadowBlur: 1.0
+        shadowVerticalOffset: 14
+        shadowHorizontalOffset: 0
+        shadowOpacity: 0.55
+        shadowColor: "black"
+        z: -1
     }
 }
