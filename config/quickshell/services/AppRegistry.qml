@@ -33,7 +33,7 @@ QtObject {
         "deploy":      { icon: "", color: Theme.Mocha.green },     // terminal
         "journalctl":  { icon: "", color: Theme.Mocha.yellow },
         "system":      { icon: "", color: Theme.Mocha.subtext0 }, // cog
-        "calendar":    { icon: "", color: Theme.Mocha.lavender },  // calendar
+        "calendar":    { icon: "", color: Theme.Mocha.pink },  // calendar
         "battery":     { icon: "", color: Theme.Mocha.green },     // battery-full
 
         // Default (unknown apps)
