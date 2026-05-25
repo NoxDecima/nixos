@@ -56,7 +56,7 @@ PanelWindow {
         readonly property int minH: 500
         readonly property int maxH: 720
         height: Math.max(minH, Math.min(maxH, content.implicitHeight + 2 * Theme.Mocha.spaceMd))
-        color: Qt.rgba(0.117, 0.117, 0.180, 0.70)   // mantle @ 0.70 so the layer blur shows through
+        color: Qt.rgba(0.117, 0.117, 0.180, 0.92)   // mantle @ 0.92 — mostly opaque, blur shows subtly
         radius: Theme.Mocha.radiusLg
         border.width: 1
         border.color: Theme.Mocha.surface0

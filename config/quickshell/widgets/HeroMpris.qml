@@ -9,13 +9,14 @@ Rectangle {
     property var player: Services.Mpris.activePlayer
     visible: player !== null
     implicitHeight: visible ? layoutRow.implicitHeight + 28 : 0   // 14*2 padding
-    // V15: subtle vertical lift — top a touch lighter than the panel mantle,
-    // settling back to solid mantle at the bottom. Gives the hero a soft
-    // "raised" feel above the rest of the panel without being garish.
+    // V15: soft horizontal tint — a touch of mauve on the left, blue on the
+    // right (both ~5% over mantle). Approximates V15's two radial-gradient
+    // overlays using a single linear gradient since QtQuick.Shapes is not in
+    // our import path.
     gradient: Gradient {
-        orientation: Gradient.Vertical
-        GradientStop { position: 0.0; color: Qt.lighter(Theme.Mocha.mantle, 1.22) }
-        GradientStop { position: 1.0; color: Theme.Mocha.mantle }
+        orientation: Gradient.Horizontal
+        GradientStop { position: 0.0; color: "#211f30" }   // mantle + 5% mauve
+        GradientStop { position: 1.0; color: "#1e2030" }   // mantle + 5% blue
     }
 
     function _fmt(s) {

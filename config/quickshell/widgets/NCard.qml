@@ -158,7 +158,8 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     enabled: (card.entry?.actions ?? []).some(a => a.identifier === "default")
                     onClicked: {
-                        card.actionInvoked("default")
+                        const def = (card.entry?.actions ?? []).find(a => a.identifier === "default")
+                        if (def) def.invoke()
                         card.dismissed()
                     }
                 }

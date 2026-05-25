@@ -254,7 +254,11 @@ Item {
                             canReply: true
                             entry: modelData.entry
                             onDismissed: Services.Notifications.dismiss(modelData.entry.id)
-                            onActionInvoked: (actionId) => modelData.entry.notification?.invokeAction(actionId)
+                            onActionInvoked: (actionId) => {
+                                const action = modelData.entry?.notification?.actions
+                                    ?.find(a => a.identifier === actionId)
+                                if (action) action.invoke()
+                            }
                         }
                     }
                 }

@@ -108,7 +108,9 @@ PanelWindow {
                             }
                             return
                         }
-                        cell.entry?.notification?.invokeAction(actionId)
+                        const action = cell.entry?.notification?.actions
+                            ?.find(a => a.identifier === actionId)
+                        if (action) action.invoke()
                     }
                 }
             }
