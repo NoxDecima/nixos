@@ -20,15 +20,6 @@ Rectangle {
         return len > 0 ? (player?.position ?? 0) / len : 0
     }
 
-    // Hero/body separator (V15 border-bottom)
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        height: 1
-        color: Theme.Mocha.surface0
-    }
-
     RowLayout {
         id: layoutRow
         anchors.fill: parent
