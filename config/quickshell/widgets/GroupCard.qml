@@ -153,7 +153,7 @@ Rectangle {
 
             // Chevron (FA chevron-right when collapsed, chevron-down when expanded)
             Text {
-                text: groupCard.expanded ? "" : ""
+                text: groupCard.expanded ? "\uF078" : "\uF054"
                 color: Theme.Mocha.overlay1
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: 11
@@ -222,7 +222,7 @@ Rectangle {
                 color: clearMa.containsMouse ? Theme.Mocha.surface1 : Theme.Mocha.mantle
                 Text {
                     anchors.centerIn: parent
-                    text: "  Clear all"
+                    text: "\uF247  Clear all"
                     color: Theme.Mocha.overlay1
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 11
