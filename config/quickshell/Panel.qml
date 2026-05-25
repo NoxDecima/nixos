@@ -11,8 +11,8 @@ PanelWindow {
     property bool isOpen: false
 
     anchors.top: true
-    margins.top: 38
-    implicitWidth: 580
+    margins.top: 12
+    implicitWidth: 640
     implicitHeight: 720
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -42,11 +42,11 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         anchors.margins: 8
-        color: Theme.Mocha.base
-        opacity: 0.94
+        color: Theme.Mocha.mantle
+        opacity: 0.97
         radius: Theme.Mocha.radiusLg
         border.width: 1
-        border.color: Theme.Mocha.surface1
+        border.color: Theme.Mocha.surface0
 
         ColumnLayout {
             anchors.fill: parent
@@ -63,7 +63,7 @@ PanelWindow {
 
                 // Left rail
                 ColumnLayout {
-                    Layout.preferredWidth: 220
+                    Layout.preferredWidth: 200
                     Layout.fillHeight: true
                     spacing: Theme.Mocha.spaceSm
 
