@@ -60,6 +60,51 @@ Item {
 
     readonly property var displayRows: _buildRows()
 
+    // Called by Toasts.qml (via Panel.openWithReply) when the user clicks
+    // "Reply" on a toast. Expands the relevant group if needed, opens the
+    // matching NCard's reply field, and gives the TextField keyboard focus.
+    function focusReplyFor(id) {
+        const entry = Services.Notifications.notifs.find(n => n.id === id)
+        if (!entry) return
+        // If this entry is part of a group of >= 2 from same app, expand it
+        const sameAppCount = Services.Notifications.notifs
+            .filter(n => n.appName === entry.appName).length
+        if (sameAppCount >= 2) {
+            root.expandedApp = entry.appName
+        }
+        // Defer one event-loop tick so Repeater has time to instantiate
+        // the corresponding NCard before we try to find and focus it.
+        Qt.callLater(() => root._focusCardById(id))
+    }
+
+    function _focusCardById(id) {
+        for (let i = 0; i < cardRepeater.count; i++) {
+            const delegate = cardRepeater.itemAt(i)
+            if (!delegate) continue
+            // delegate is the ColumnLayout; first child is the NCard.
+            const ncard = delegate.children[0]
+            if (ncard && ncard.entry?.id === id) {
+                ncard.replyOpen = true
+                root._focusTextFieldIn(ncard)
+                return
+            }
+        }
+    }
+
+    function _focusTextFieldIn(node) {
+        if (!node) return false
+        if (node.objectName === "replyField") {
+            node.forceActiveFocus()
+            return true
+        }
+        const kids = node.children
+        if (!kids) return false
+        for (let i = 0; i < kids.length; i++) {
+            if (root._focusTextFieldIn(kids[i])) return true
+        }
+        return false
+    }
+
     // Header
     RowLayout {
         id: header
@@ -130,6 +175,7 @@ Item {
             spacing: Theme.Mocha.spaceSm
 
             Repeater {
+                id: cardRepeater
                 model: root.displayRows
                 delegate: ColumnLayout {
                     Layout.fillWidth: true
@@ -137,6 +183,7 @@ Item {
 
                     NCard {
                         Layout.fillWidth: true
+                        canReply: true
                         entry: modelData.entry
                         onDismissed: Services.Notifications.dismiss(modelData.entry.id)
                         onActionInvoked: (actionId) => modelData.entry.notification?.invokeAction(actionId)

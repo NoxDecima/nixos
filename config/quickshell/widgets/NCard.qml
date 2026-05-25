@@ -179,6 +179,7 @@ Rectangle {
 
             TextField {
                 id: replyField
+                objectName: "replyField"
                 Layout.fillWidth: true
                 placeholderText: card.entry?.inlineReplyPlaceholder ?? "Reply..."
                 font.family: Theme.Mocha.fontFamily
