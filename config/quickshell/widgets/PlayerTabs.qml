@@ -8,7 +8,7 @@ import "../services" as Services
 Item {
     id: tabs
     visible: Services.Mpris.players.length > 1
-    implicitHeight: visible ? 32 : 0
+    implicitHeight: visible ? 22 : 0
 
     function _iconFor(player) {
         const de = player?.desktopEntry ?? ""
@@ -16,20 +16,12 @@ Item {
         return Quickshell.iconPath(de, true) || ""
     }
 
-    // V15: 1px top border (rgba(205,214,244,0.06))
-    Rectangle {
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: 1
-        color: Qt.rgba(0.804, 0.839, 0.957, 0.06)
-    }
+    // (HeroMpris's bottom divider is the visual separator above this widget.)
 
     Row {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.leftMargin: 16
-        anchors.topMargin: 11    // 1 (border) + 10 (V15 padding-top)
         spacing: 4
 
         Repeater {
