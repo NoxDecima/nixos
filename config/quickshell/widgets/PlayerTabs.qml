@@ -8,7 +8,8 @@ import "../services" as Services
 Item {
     id: tabs
     visible: Services.Mpris.players.length > 1
-    implicitHeight: visible ? 22 : 0
+    // 22 (pill) + 12 (breathing room) + 1 (divider) = 35
+    implicitHeight: visible ? 35 : 0
 
     function _iconFor(player) {
         const de = player?.desktopEntry ?? ""
