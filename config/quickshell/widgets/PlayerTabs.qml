@@ -25,8 +25,9 @@ Item {
         color: Qt.rgba(0.804, 0.839, 0.957, 0.06)
     }
 
-    RowLayout {
-        anchors.fill: parent
+    Row {
+        anchors.top: parent.top
+        anchors.left: parent.left
         anchors.leftMargin: 16
         anchors.topMargin: 11    // 1 (border) + 10 (V15 padding-top)
         spacing: 4
@@ -40,7 +41,7 @@ Item {
                 property string iconSrc: tabs._iconFor(modelData)
                 property bool useImage: appImg.status === Image.Ready
 
-                Layout.preferredHeight: 22
+                height: 22
                 implicitWidth: tabRow.implicitWidth + 20
                 radius: 6
                 color: isActive ? Theme.Mocha.surface0
