@@ -6,42 +6,38 @@ Rectangle {
     id: tile
 
     property string label: ""
-    property string icon: ""      // unicode glyph (Nerd Font / Material)
+    property string icon: ""
     property bool active: false
     property bool warn: false
     signal clicked()
 
-    implicitWidth: 100
-    implicitHeight: 56
-    radius: Theme.Mocha.radiusMd
-    color: warn ? Qt.alpha(Theme.Mocha.peach, 0.25)
-         : active ? Qt.alpha(Theme.Mocha.blue, 0.25)
-         : Theme.Mocha.surface0
+    implicitHeight: 40
+    radius: 8
+    color: active ? Theme.Mocha.blue : Theme.Mocha.surface0
     border.width: 1
-    border.color: warn ? Theme.Mocha.peach
-                : active ? Theme.Mocha.blue
-                : Theme.Mocha.surface1
+    border.color: active ? Theme.Mocha.blue : Theme.Mocha.surface1
 
-    RowLayout {
-        anchors.fill: parent
-        anchors.margins: Theme.Mocha.spaceSm
-        spacing: Theme.Mocha.spaceXs
+    ColumnLayout {
+        anchors.centerIn: parent
+        spacing: 3
 
         Text {
+            Layout.alignment: Qt.AlignHCenter
             text: tile.icon
-            color: tile.warn ? Theme.Mocha.peach
-                 : tile.active ? Theme.Mocha.blue
-                 : Theme.Mocha.subtext0
+            color: tile.active ? Theme.Mocha.base
+                 : tile.warn   ? Theme.Mocha.peach
+                                : Theme.Mocha.text
             font.family: Theme.Mocha.iconFamily
-            font.pixelSize: 16
+            font.pixelSize: 14
         }
         Text {
+            Layout.alignment: Qt.AlignHCenter
             text: tile.label
-            color: Theme.Mocha.text
+            color: tile.active ? Theme.Mocha.base
+                 : tile.warn   ? Theme.Mocha.peach
+                                : Theme.Mocha.text
             font.family: Theme.Mocha.fontFamily
-            font.pixelSize: Theme.Mocha.fontSm
-            Layout.fillWidth: true
-            elide: Text.ElideRight
+            font.pixelSize: 10
         }
     }
 
