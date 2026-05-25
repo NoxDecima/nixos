@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Wayland
 import "theme" as Theme
@@ -49,8 +48,6 @@ PanelWindow {
         radius: Theme.Mocha.radiusLg
         border.width: 1
         border.color: Theme.Mocha.surface0
-        layer.enabled: true
-
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: Theme.Mocha.spaceMd
@@ -85,17 +82,8 @@ PanelWindow {
         }
     }
 
-    // DropShadow renders ONLY the shadow (transparent where source is opaque,
-    // shadow where source has alpha). The surface Rectangle stays visible as
-    // itself; the shadow appears underneath via z: -1.
-    DropShadow {
-        source: surface
-        anchors.fill: surface
-        horizontalOffset: 0
-        verticalOffset: 14
-        radius: 36
-        samples: 24
-        color: "#8c000000"
-        z: -1
-    }
+    // Drop shadow deferred: requires Qt5Compat.GraphicalEffects (DropShadow)
+    // which isn't on this Quickshell's QML import path. Followup: add
+    // pkgs.qt6.qt5compat to system Qt path or wrap quickshell with
+    // QML2_IMPORT_PATH including the qt5compat qml dir.
 }
