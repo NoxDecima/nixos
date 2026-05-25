@@ -7,6 +7,8 @@ Rectangle {
     id: tile
     color: Theme.Mocha.mantle
     radius: Theme.Mocha.radiusMd
+    border.width: 1
+    border.color: Theme.Mocha.surface0
     implicitHeight: grid.implicitHeight + Theme.Mocha.spaceSm * 2
 
     GridLayout {
