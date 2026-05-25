@@ -58,7 +58,19 @@ Item {
         return out
     }
 
-    readonly property var displayRows: _buildRows()
+    // QML's binding analysis doesn't track properties read inside JS function
+    // calls, so `_buildRows()` won't auto-re-evaluate when `notifs` mutates.
+    // The invalidator counter is bumped on every Notifications state change,
+    // forcing this binding to re-fire and rebuild the grouped row list.
+    property int _invalidator: 0
+    Connections {
+        target: Services.Notifications
+        function onStateChanged() { root._invalidator++ }
+    }
+    readonly property var displayRows: {
+        root._invalidator;   // dependency — touch to subscribe
+        return _buildRows()
+    }
 
     // Called by Toasts.qml (via Panel.openWithReply) when the user clicks
     // "Reply" on a toast. Expands the relevant group if needed, opens the
@@ -220,9 +232,15 @@ Item {
                                     anchors.fill: parent
                                     cursorShape: Qt.PointingHandCursor
                                     onClicked: {
-                                        Services.Notifications.dismiss(modelData.entry.id)
+                                        // Capture all IDs before any dismiss so the
+                                        // reactive update from dismiss() doesn't
+                                        // invalidate modelData mid-iteration.
+                                        const ids = [modelData.entry.id]
                                         for (const o of (modelData.older ?? [])) {
-                                            Services.Notifications.dismiss(o.id)
+                                            ids.push(o.id)
+                                        }
+                                        for (const id of ids) {
+                                            Services.Notifications.dismiss(id)
                                         }
                                     }
                                 }
