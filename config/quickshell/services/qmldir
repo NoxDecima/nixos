@@ -13,4 +13,3 @@ singleton Idle 1.0 Idle.qml
 singleton Mpris 1.0 Mpris.qml
 singleton NightLight 1.0 NightLight.qml
 singleton InputMethod 1.0 InputMethod.qml
-singleton AppRegistry 1.0 AppRegistry.qml

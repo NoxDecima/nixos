@@ -31,6 +31,7 @@ QtObject {
                 id: notification.id,
                 appName: notification.appName,
                 appIcon: notification.appIcon ?? "",
+                appIconUrl: root._resolveIconSource(notification.appIcon ?? ""),
                 summary: notification.summary,
                 body: notification.body,
                 image: notification.image,
@@ -67,6 +68,17 @@ QtObject {
     function expireToast(id) {
         activeToasts = activeToasts.filter(n => n.id !== id)
         // notif stays in panel list until dismissed/cleared
+    }
+
+    // Resolve a dbus app_icon string (absolute path, file:// URL, or
+    // freedesktop icon-theme name) to a URL usable as Image.source.
+    // Returns "" if no usable source is found.
+    function _resolveIconSource(appIcon) {
+        if (!appIcon || appIcon.length === 0) return ""
+        if (appIcon.startsWith("file://")) return appIcon
+        if (appIcon.startsWith("/")) return "file://" + appIcon
+        const p = Quickshell.iconPath(appIcon, true)
+        return p || ""
     }
 
     function toggleDnd() {

@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../theme" as Theme
-import "../services" as Services
 
 Rectangle {
     id: card
@@ -16,14 +15,6 @@ Rectangle {
 
     // V15: low priority gets compact single-line variant
     readonly property bool lowCompact: urgency === 0
-
-    // Per-app icon + accent color
-    readonly property var appInfo: Services.AppRegistry.lookup(entry?.appName ?? "")
-    readonly property color iconBg:
-        urgency === 2  ? Theme.Mocha.red                       // critical
-      : lowCompact     ? Theme.Mocha.surface0                  // low
-      :                  (appInfo.color ?? Theme.Mocha.overlay1)
-    readonly property color iconFg: lowCompact ? Theme.Mocha.subtext0 : Theme.Mocha.base
 
     signal dismissed()
     signal actionInvoked(string actionId)
@@ -73,17 +64,16 @@ Rectangle {
             Layout.preferredHeight: lowCompact ? 26 : 34
             Layout.alignment: lowCompact ? Qt.AlignVCenter : Qt.AlignTop
             radius: lowCompact ? 6 : 8
-            color: card.iconBg
             clip: true
 
-            // Prefer dbus app_icon image; fall back to AppRegistry glyph.
-            // Critical (urgency=2) and lowCompact always use the glyph so the
-            // red-warning and dimmed-compact looks stay consistent.
+            // Critical (urgency=2) forces the glyph + red bg as a warning signal.
+            // Otherwise prefer dbus app_icon image; fall back to neutral bell glyph.
             readonly property string imgSrc:
-                (card.urgency === 2 || card.lowCompact)
-                    ? ""
-                    : Services.AppRegistry.resolveIconSource(card.entry?.appIcon ?? "")
+                card.urgency === 2 ? "" : (card.entry?.appIconUrl ?? "")
             readonly property bool useImage: appImg.status === Image.Ready
+            color: useImage
+                ? "transparent"
+                : (card.urgency === 2 ? Theme.Mocha.red : Theme.Mocha.surface0)
 
             Image {
                 id: appImg
@@ -100,8 +90,8 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
                 visible: !parent.useImage
-                text: card.appInfo.icon ?? ""
-                color: card.iconFg
+                text: ""   // FA bell
+                color: card.urgency === 2 ? Theme.Mocha.base : Theme.Mocha.subtext0
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: lowCompact ? 13 : 16
             }

@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import "../theme" as Theme
-import "../services" as Services
 
 Rectangle {
     id: groupCard
@@ -23,7 +22,6 @@ Rectangle {
     clip: true
     implicitHeight: headArea.implicitHeight + (expanded ? bodyArea.implicitHeight : 0)
 
-    readonly property var appInfo: Services.AppRegistry.lookup(appName)
     readonly property int totalCount: 1 + (older?.length ?? 0)
 
     function _relTime(ts) {
@@ -99,14 +97,13 @@ Rectangle {
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 radius: 8
-                color: groupCard.appInfo.color
                 clip: true
 
-                // Prefer dbus app_icon image (from the newest entry); fall back to
-                // AppRegistry glyph. Background color stays from registry.
-                readonly property string imgSrc:
-                    Services.AppRegistry.resolveIconSource(groupCard.head?.appIcon ?? "")
+                // Prefer dbus app_icon image (from the newest entry); fall back
+                // to neutral bell glyph on surface0.
+                readonly property string imgSrc: groupCard.head?.appIconUrl ?? ""
                 readonly property bool useImage: appImg.status === Image.Ready
+                color: useImage ? "transparent" : Theme.Mocha.surface1
 
                 Image {
                     id: appImg
@@ -123,8 +120,8 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     visible: !parent.useImage
-                    text: groupCard.appInfo.icon
-                    color: Theme.Mocha.base
+                    text: ""   // FA bell
+                    color: Theme.Mocha.subtext0
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 16
                 }
