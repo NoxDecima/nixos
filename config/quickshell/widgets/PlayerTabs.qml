@@ -16,7 +16,14 @@ Item {
         return Quickshell.iconPath(de, true) || ""
     }
 
-    // (HeroMpris's bottom divider is the visual separator above this widget.)
+    // Separator at the bottom of the hero+tabs block.
+    Rectangle {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: 1
+        color: Theme.Mocha.surface0
+    }
 
     Row {
         anchors.top: parent.top
