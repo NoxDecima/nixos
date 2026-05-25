@@ -40,8 +40,9 @@ PanelWindow {
         spacing: Theme.Mocha.spaceSm
 
         Repeater {
-            // Display oldest at top, newest at bottom — see spec.
-            model: Services.Notifications.activeToasts.slice(0, 3).reverse()
+            // Display newest at top, oldest at bottom of the visible stack.
+            // activeToasts is already newest-first; no transformation needed.
+            model: Services.Notifications.activeToasts.slice(0, 3)
 
             delegate: Item {
                 id: cell
