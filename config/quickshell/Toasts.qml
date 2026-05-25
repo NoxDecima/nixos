@@ -8,6 +8,7 @@ import "widgets" as Widgets
 
 PanelWindow {
     id: toastWindow
+    property var panelRef    // injected from shell.qml: the Panel instance
 
     anchors.top: true
     anchors.right: true
@@ -94,12 +95,21 @@ PanelWindow {
                 Widgets.NCard {
                     id: card
                     anchors.fill: parent
+                    canReply: false
                     entry: cell.entry
                     showProgress: cell.duration > 0
                     progress: cell.progress
                     urgency: cell.entry?.urgency ?? 1
                     onDismissed: Services.Notifications.dismiss(cell.entry.id)
-                    onActionInvoked: (actionId) => cell.entry?.notification?.invokeAction(actionId)
+                    onActionInvoked: (actionId) => {
+                        if (actionId === "__reply__") {
+                            if (toastWindow.panelRef) {
+                                toastWindow.panelRef.openWithReply(cell.entry.id)
+                            }
+                            return
+                        }
+                        cell.entry?.notification?.invokeAction(actionId)
+                    }
                 }
             }
         }

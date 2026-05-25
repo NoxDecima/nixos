@@ -28,6 +28,13 @@ PanelWindow {
     function open()   { isOpen = true; Services.Notifications.activeToasts = [] }
     function close()  { isOpen = false }
     function toggle() { isOpen ? close() : open() }
+    function openWithReply(id) {
+        isOpen = true
+        Services.Notifications.activeToasts = []
+        Qt.callLater(() => {
+            if (notifList) notifList.focusReplyFor(id)
+        })
+    }
 
     // Any click that reaches this MouseArea is outside the inner surface
     // (children of the surface consume their own clicks before bubbling here).
@@ -75,6 +82,7 @@ PanelWindow {
 
                 // Right column (notifications)
                 Widgets.NotifList {
+                    id: notifList
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }

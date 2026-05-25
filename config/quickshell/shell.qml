@@ -14,7 +14,7 @@ ShellRoot {
     }
 
     Panel { id: panel }
-    Toasts {}
+    Toasts { panelRef: panel }
 
     IpcHandler {
         target: "panel"
