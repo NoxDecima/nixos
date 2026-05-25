@@ -285,7 +285,7 @@ Rectangle {
             border.color: Theme.Mocha.surface1
             Text {
                 anchors.centerIn: parent
-                text: ""   // X (Font Awesome)
+                text: "\uF00D"   // FA times
                 color: Theme.Mocha.maroon
                 font.family: Theme.Mocha.iconFamily
                 font.pixelSize: 10

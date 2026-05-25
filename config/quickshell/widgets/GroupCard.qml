@@ -222,7 +222,7 @@ Rectangle {
                 color: clearMa.containsMouse ? Theme.Mocha.surface1 : Theme.Mocha.mantle
                 Text {
                     anchors.centerIn: parent
-                    text: "\uF247  Clear all"
+                    text: "\uF014  Clear all"
                     color: Theme.Mocha.overlay1
                     font.family: Theme.Mocha.iconFamily
                     font.pixelSize: 11
