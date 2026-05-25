@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
+import Qt5Compat.GraphicalEffects
 import Quickshell
 import Quickshell.Wayland
 import "theme" as Theme
@@ -85,15 +85,17 @@ PanelWindow {
         }
     }
 
-    MultiEffect {
+    // DropShadow renders ONLY the shadow (transparent where source is opaque,
+    // shadow where source has alpha). The surface Rectangle stays visible as
+    // itself; the shadow appears underneath via z: -1.
+    DropShadow {
         source: surface
         anchors.fill: surface
-        shadowEnabled: true
-        shadowBlur: 1.0
-        shadowVerticalOffset: 14
-        shadowHorizontalOffset: 0
-        shadowOpacity: 0.55
-        shadowColor: "black"
+        horizontalOffset: 0
+        verticalOffset: 14
+        radius: 36
+        samples: 24
+        color: "#8c000000"
         z: -1
     }
 }
