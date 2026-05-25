@@ -79,7 +79,7 @@ Item {
                         Text {
                             anchors.centerIn: parent
                             visible: !tab.useImage
-                            text: ""   // FA music
+                            text: "\uF001"   // FA music
                             color: tab.isActive ? Theme.Mocha.text : Theme.Mocha.subtext0
                             font.family: Theme.Mocha.iconFamily
                             font.pixelSize: 11
