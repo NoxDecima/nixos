@@ -151,7 +151,7 @@ Item {
             Layout.fillWidth: true
         }
         Text {
-            text: " CLEAR ALL"
+            text: "  CLEAR ALL"
             color: Theme.Mocha.overlay1
             font.family: Theme.Mocha.iconFamily
             font.pixelSize: 11
