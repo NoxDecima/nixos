@@ -22,7 +22,7 @@ QtObject {
         bodySupported: true
         bodyMarkupSupported: true
         imageSupported: true
-        inlineReplySupported: false  // v1: not supported
+        inlineReplySupported: true   // v2: TextField in NCard handles input
         keepOnReload: true
 
         onNotification: (notification) => {
@@ -35,6 +35,8 @@ QtObject {
                 image: notification.image,
                 urgency: notification.urgency,  // 0=low, 1=normal, 2=critical
                 actions: notification.actions,
+                hasInlineReply: notification.hasInlineReply ?? false,
+                inlineReplyPlaceholder: notification.inlineReplyPlaceholder ?? "",
                 timestamp: Date.now(),
                 notification: notification
             }
