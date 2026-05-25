@@ -11,10 +11,14 @@ PanelWindow {
     id: panel
     property bool isOpen: false
 
-    anchors.top: true
-    margins.top: 12
-    implicitWidth: 640
-    implicitHeight: 720
+    // Fullscreen layer-shell window: backdrop fills the screen so any click
+    // outside the inner surface closes the panel.
+    anchors {
+        top: true
+        left: true
+        right: true
+        bottom: true
+    }
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
@@ -26,24 +30,20 @@ PanelWindow {
     function close()  { isOpen = false }
     function toggle() { isOpen ? close() : open() }
 
-    // Backdrop: closes the panel ONLY when the click lands in the 8px margin
-    // around the surface (outside-click-to-close). Clicks inside the surface
-    // fall through to whatever widget handles them (sliders, toggles, etc.)
-    // and don't reach this MouseArea because Qt widgets accept their events.
+    // Any click that reaches this MouseArea is outside the inner surface
+    // (children of the surface consume their own clicks before bubbling here).
     MouseArea {
         anchors.fill: parent
-        onClicked: function(mouse) {
-            if (mouse.x < 8 || mouse.x > width - 8
-                || mouse.y < 8 || mouse.y > height - 8) {
-                panel.close()
-            }
-        }
+        onClicked: panel.close()
     }
 
     Rectangle {
         id: surface
-        anchors.fill: parent
-        anchors.margins: 8
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 12
+        width: 640
+        height: 720
         color: Theme.Mocha.mantle
         opacity: 0.97
         radius: Theme.Mocha.radiusLg
