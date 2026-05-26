@@ -26,6 +26,10 @@ Item {
     property string expandedApp: ""
 
     function _buildRows() {
+        // One row per app. GroupCard renders its own head+older expansion
+        // internally, so we never emit separate "older" rows here (doing so
+        // duplicates the expanded entries — they show inside the group AND
+        // as standalone cards beside it).
         const rows = []
         const seen = {}    // appName -> index in rows array
 
@@ -33,29 +37,14 @@ Item {
             const a = n.appName ?? ""
             if (!(a in seen)) {
                 seen[a] = rows.length
-                rows.push({ entry: n, appName: a, older: [] })
+                rows.push({ type: "head", entry: n, appName: a, olderCount: 0, older: [] })
             } else {
-                rows[seen[a]].older.push(n)
+                const r = rows[seen[a]]
+                r.older.push(n)
+                r.olderCount = r.older.length
             }
         }
-
-        // Flatten: each head; if expanded, its older entries follow.
-        const out = []
-        for (const r of rows) {
-            out.push({
-                type: "head",
-                entry: r.entry,
-                appName: r.appName,
-                olderCount: r.older.length,
-                older: r.older
-            })
-            if (r.older.length > 0 && root.expandedApp === r.appName) {
-                for (const o of r.older) {
-                    out.push({ type: "older", entry: o, appName: r.appName })
-                }
-            }
-        }
-        return out
+        return rows
     }
 
     // QML's binding analysis doesn't track properties read inside JS function

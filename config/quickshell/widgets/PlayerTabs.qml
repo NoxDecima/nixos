@@ -8,22 +8,12 @@ import "../services" as Services
 Item {
     id: tabs
     visible: Services.Mpris.players.length > 1
-    // 22 (pill) + 12 (breathing room) + 1 (divider) = 35
-    implicitHeight: visible ? 35 : 0
+    implicitHeight: visible ? 22 : 0
 
     function _iconFor(player) {
         const de = player?.desktopEntry ?? ""
         if (!de) return ""
         return Quickshell.iconPath(de, true) || ""
-    }
-
-    // Separator at the bottom of the hero+tabs block.
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        height: 1
-        color: Theme.Mocha.surface0
     }
 
     Row {

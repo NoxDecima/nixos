@@ -66,8 +66,17 @@ PanelWindow {
             anchors.margins: Theme.Mocha.spaceMd
             spacing: Theme.Mocha.spaceMd
 
-            Widgets.HeroMpris { Layout.fillWidth: true }
+            Widgets.HeroMpris { id: heroSection; Layout.fillWidth: true }
             Widgets.PlayerTabs { Layout.fillWidth: true }
+
+            // Hero/body separator — visible whenever the hero is shown,
+            // regardless of whether the player-tabs row is rendered.
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                visible: heroSection.visible
+                color: Theme.Mocha.surface0
+            }
 
             RowLayout {
                 Layout.fillWidth: true

@@ -15,8 +15,8 @@ Rectangle {
     // our import path.
     gradient: Gradient {
         orientation: Gradient.Horizontal
-        GradientStop { position: 0.0; color: "#211f30" }   // mantle + 5% mauve
-        GradientStop { position: 1.0; color: "#1e2030" }   // mantle + 5% blue
+        GradientStop { position: 0.0; color: "#332d44" }   // mantle + 15% mauve
+        GradientStop { position: 1.0; color: "#292f45" }   // mantle + 15% blue
     }
 
     function _fmt(s) {
