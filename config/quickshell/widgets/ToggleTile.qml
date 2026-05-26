@@ -44,7 +44,7 @@ Rectangle {
         Toggle {
             Layout.fillWidth: true
             icon: ""; label: "Night"           // sun
-            warn: Services.NightLight.active
+            active: Services.NightLight.active
             onClicked: Services.NightLight.toggle()
         }
         Toggle {
