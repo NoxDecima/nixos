@@ -52,14 +52,24 @@ QtObject {
 
     function dismiss(id) {
         const entry = notifs.find(n => n.id === id)
-        if (entry?.notification) entry.notification.dismiss()
+        // entry.notification may already be a destroyed QObject if the daemon
+        // closed it (e.g. immediately after an action invocation). The optional
+        // chain returns undefined on a dead object in recent Qt but some paths
+        // still throw on property access, so wrap defensively.
+        try {
+            if (entry?.notification?.dismiss) entry.notification.dismiss()
+        } catch (e) {
+            // already torn down server-side; nothing to do
+        }
         notifs = notifs.filter(n => n.id !== id)
         activeToasts = activeToasts.filter(n => n.id !== id)
         stateChanged()
     }
 
     function clearAll() {
-        notifs.forEach(n => n.notification?.dismiss())
+        notifs.forEach(n => {
+            try { if (n.notification?.dismiss) n.notification.dismiss() } catch (e) {}
+        })
         notifs = []
         activeToasts = []
         stateChanged()

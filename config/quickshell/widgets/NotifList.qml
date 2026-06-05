@@ -245,8 +245,8 @@ Item {
                             onDismissed: Services.Notifications.dismiss(modelData.entry.id)
                             onActionInvoked: (actionId) => {
                                 const action = modelData.entry?.notification?.actions
-                                    ?.find(a => a.identifier === actionId)
-                                if (action) action.invoke()
+                                    ?.find(a => a && a.identifier === actionId)
+                                if (action && action.invoke) action.invoke()
                             }
                         }
                     }

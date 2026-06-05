@@ -156,10 +156,10 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    enabled: (card.entry?.actions ?? []).some(a => a.identifier === "default")
+                    enabled: (card.entry?.actions ?? []).some(a => a && a.identifier === "default")
                     onClicked: {
-                        const def = (card.entry?.actions ?? []).find(a => a.identifier === "default")
-                        if (def) def.invoke()
+                        const def = (card.entry?.actions ?? []).find(a => a && a.identifier === "default")
+                        if (def && def.invoke) def.invoke()
                         card.dismissed()
                     }
                 }
@@ -206,7 +206,7 @@ Rectangle {
 
                 Repeater {
                     id: actionRepeater
-                    model: (card.entry?.actions ?? []).filter(a => a.identifier !== "default")
+                    model: (card.entry?.actions ?? []).filter(a => a && a.identifier !== "default")
                     delegate: Rectangle {
                         property bool isPrimary: index === 0 && !(card.entry?.hasInlineReply ?? false)
                         Layout.preferredHeight: 24
@@ -221,7 +221,7 @@ Rectangle {
                         Text {
                             id: actionText
                             anchors.centerIn: parent
-                            text: modelData.text ?? modelData.identifier
+                            text: modelData ? (modelData.text ?? modelData.identifier ?? "") : ""
                             color: isPrimary ? Theme.Mocha.blue : Theme.Mocha.text
                             font.family: Theme.Mocha.fontFamily
                             font.pixelSize: 11
@@ -231,8 +231,9 @@ Rectangle {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
+                            enabled: !!modelData
                             onClicked: {
-                                card.actionInvoked(modelData.identifier)
+                                if (modelData) card.actionInvoked(modelData.identifier)
                                 card.dismissed()
                             }
                         }

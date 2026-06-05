@@ -109,8 +109,8 @@ PanelWindow {
                             return
                         }
                         const action = cell.entry?.notification?.actions
-                            ?.find(a => a.identifier === actionId)
-                        if (action) action.invoke()
+                            ?.find(a => a && a.identifier === actionId)
+                        if (action && action.invoke) action.invoke()
                     }
                 }
             }
