@@ -35,6 +35,7 @@
 	    hyprshot
 	    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.quickshell
 	    brightnessctl
+	    playerctl
 	    wofi
 	    nautilus
         hyprpolkitagent
