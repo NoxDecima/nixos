@@ -1,5 +1,7 @@
 { inputs, settings, pkgs, ... }:
-
+let
+    unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+in
 {
     # Enable the X11 windowing system.
 	services.xserver.enable = true;
@@ -20,6 +22,13 @@
     programs.hyprland = {
         enable = true;
         xwayland.enable = true;
+        # Pull Hyprland and its portal from nixpkgs-unstable to get >= 0.56.0.
+        # Stable (25.05) ships 0.49.0, which destroys bound wl_output resources
+        # on same-name output replacement at S3 resume, disconnecting every
+        # Wayland client (hyprlock, portal, ...) and leaving a dead lock screen.
+        # Fixed upstream in Hyprland 0.56.0 (PR #15351).
+        package = unstable.hyprland;
+        portalPackage = unstable.xdg-desktop-portal-hyprland;
     };
 
     programs.waybar.enable = true;
@@ -33,7 +42,7 @@
 	    hyprpaper
 	    hyprsunset
 	    hyprshot
-	    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.quickshell
+	    unstable.quickshell
 	    brightnessctl
 	    wofi
 	    nautilus
@@ -44,7 +53,7 @@
         portal = {
             enable = true;
             wlr.enable = false;
-            extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+            extraPortals = [ unstable.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
             config.common.default = "*";
         };
         mime = {
