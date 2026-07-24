@@ -12,15 +12,23 @@
       stateVersion = "24.11";
       packages = [ ];
       file = {
-        # Hyprland
-        ".config/hypr/hypridle.conf".source = ../../config/hypr/hypridle.conf;
-        ".config/hypr/idle-suspend.sh".source = ../../config/hypr/idle-suspend.sh;
-        ".config/hypr/hyprlock.conf".source = ../../config/hypr/hyprlock.conf;
-        ".config/hypr/hyprland.conf".source = ../../config/hypr/hyprland.conf;
-        ".config/hypr/hyprpaper.conf".source = ../../config/hypr/hyprpaper.conf;
-        ".config/hypr/monitors.conf".source = ../../config/hypr/monitors-work.conf;
-        ".config/hypr/theme".source = ../../config/hypr/theme;
-        ".config/hypr/hypr-config".source = ../../config/hypr/hypr-config;
+        # Hyprland (live symlinks into the repo — edit + auto-reload, no rebuild)
+        ".config/hypr/hypridle.conf".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hypridle.conf";
+        ".config/hypr/idle-suspend.sh".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/idle-suspend.sh";
+        ".config/hypr/hyprlock.conf".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hyprlock.conf";
+        ".config/hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hyprland.conf";
+        ".config/hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hyprpaper.conf";
+        ".config/hypr/monitors.conf".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/monitors-work.conf";
+        ".config/hypr/theme".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/theme";
+        ".config/hypr/hypr-config".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hypr-config";
 #        ".config/hypr".source = ../../config/hypr;
 
 
