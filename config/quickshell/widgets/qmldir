@@ -8,3 +8,4 @@ SessionTile 1.0 SessionTile.qml
 NotifList 1.0 NotifList.qml
 HeroMpris 1.0 HeroMpris.qml
 PlayerTabs 1.0 PlayerTabs.qml
+GroupCard 1.0 GroupCard.qml

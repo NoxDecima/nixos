@@ -25,7 +25,7 @@ RowLayout {
         Layout.fillWidth: true
         // Make the slider tall enough to grab reliably. Default implicit
         // height comes from the 12px handle which is hard to click on.
-        implicitHeight: 28
+        implicitHeight: 22
         from: 0
         to: 1
 
@@ -58,10 +58,9 @@ RowLayout {
         handle: Rectangle {
             x: s.leftPadding + s.visualPosition * (s.availableWidth - width)
             y: s.topPadding + s.availableHeight / 2 - height / 2
-            width: 16; height: 16; radius: 8
+            width: 10; height: 10; radius: 5
             color: row.tint
-            border.width: 2
-            border.color: Theme.Mocha.base
+            border.width: 0
         }
     }
 

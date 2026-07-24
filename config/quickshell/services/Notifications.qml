@@ -22,7 +22,7 @@ QtObject {
         bodySupported: true
         bodyMarkupSupported: true
         imageSupported: true
-        inlineReplySupported: false  // v1: not supported
+        inlineReplySupported: true   // v2: TextField in NCard handles input
         keepOnReload: true
 
         onNotification: (notification) => {
@@ -30,11 +30,15 @@ QtObject {
             const entry = {
                 id: notification.id,
                 appName: notification.appName,
+                appIcon: notification.appIcon ?? "",
+                appIconUrl: root._resolveIconSource(notification.appIcon ?? ""),
                 summary: notification.summary,
                 body: notification.body,
                 image: notification.image,
                 urgency: notification.urgency,  // 0=low, 1=normal, 2=critical
                 actions: notification.actions,
+                hasInlineReply: notification.hasInlineReply ?? false,
+                inlineReplyPlaceholder: notification.inlineReplyPlaceholder ?? "",
                 timestamp: Date.now(),
                 notification: notification
             }
@@ -48,14 +52,24 @@ QtObject {
 
     function dismiss(id) {
         const entry = notifs.find(n => n.id === id)
-        if (entry?.notification) entry.notification.dismiss()
+        // entry.notification may already be a destroyed QObject if the daemon
+        // closed it (e.g. immediately after an action invocation). The optional
+        // chain returns undefined on a dead object in recent Qt but some paths
+        // still throw on property access, so wrap defensively.
+        try {
+            if (entry?.notification?.dismiss) entry.notification.dismiss()
+        } catch (e) {
+            // already torn down server-side; nothing to do
+        }
         notifs = notifs.filter(n => n.id !== id)
         activeToasts = activeToasts.filter(n => n.id !== id)
         stateChanged()
     }
 
     function clearAll() {
-        notifs.forEach(n => n.notification?.dismiss())
+        notifs.forEach(n => {
+            try { if (n.notification?.dismiss) n.notification.dismiss() } catch (e) {}
+        })
         notifs = []
         activeToasts = []
         stateChanged()
@@ -64,6 +78,17 @@ QtObject {
     function expireToast(id) {
         activeToasts = activeToasts.filter(n => n.id !== id)
         // notif stays in panel list until dismissed/cleared
+    }
+
+    // Resolve a dbus app_icon string (absolute path, file:// URL, or
+    // freedesktop icon-theme name) to a URL usable as Image.source.
+    // Returns "" if no usable source is found.
+    function _resolveIconSource(appIcon) {
+        if (!appIcon || appIcon.length === 0) return ""
+        if (appIcon.startsWith("file://")) return appIcon
+        if (appIcon.startsWith("/")) return "file://" + appIcon
+        const p = Quickshell.iconPath(appIcon, true)
+        return p || ""
     }
 
     function toggleDnd() {

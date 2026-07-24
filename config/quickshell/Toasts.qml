@@ -8,6 +8,7 @@ import "widgets" as Widgets
 
 PanelWindow {
     id: toastWindow
+    property var panelRef    // injected from shell.qml: the Panel instance
 
     anchors.top: true
     anchors.right: true
@@ -40,13 +41,18 @@ PanelWindow {
         spacing: Theme.Mocha.spaceSm
 
         Repeater {
-            // Display oldest at top, newest at bottom — see spec.
-            model: Services.Notifications.activeToasts.slice(0, 3).reverse()
+            // Instantiate ALL active toasts (so every notif's Timer ticks even
+            // while it's queued behind the visible 3). Only the first 3 are
+            // visible; the rest are 0-height invisible cells whose timers
+            // expire them in the background, so the +N pill count drops over
+            // time without user intervention.
+            model: Services.Notifications.activeToasts
 
             delegate: Item {
                 id: cell
                 Layout.fillWidth: true
-                implicitHeight: card.implicitHeight
+                visible: index < 3
+                implicitHeight: visible ? card.implicitHeight : 0
 
                 property var entry: modelData
                 property int duration: toastWindow.timeoutFor(entry?.urgency ?? 1)
@@ -89,12 +95,23 @@ PanelWindow {
                 Widgets.NCard {
                     id: card
                     anchors.fill: parent
+                    canReply: false
                     entry: cell.entry
                     showProgress: cell.duration > 0
                     progress: cell.progress
                     urgency: cell.entry?.urgency ?? 1
                     onDismissed: Services.Notifications.dismiss(cell.entry.id)
-                    onActionInvoked: (actionId) => cell.entry?.notification?.invokeAction(actionId)
+                    onActionInvoked: (actionId) => {
+                        if (actionId === "__reply__") {
+                            if (toastWindow.panelRef) {
+                                toastWindow.panelRef.openWithReply(cell.entry.id)
+                            }
+                            return
+                        }
+                        const action = cell.entry?.notification?.actions
+                            ?.find(a => a && a.identifier === actionId)
+                        if (action && action.invoke) action.invoke()
+                    }
                 }
             }
         }

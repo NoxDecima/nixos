@@ -3,33 +3,37 @@ import QtQuick.Layouts
 import "../theme" as Theme
 import "../services" as Services
 
-Rectangle {
-    color: Theme.Mocha.mantle
-    radius: Theme.Mocha.radiusMd
-    implicitHeight: row.implicitHeight + Theme.Mocha.spaceSm * 2
+Item {
+    implicitHeight: row.implicitHeight
 
     RowLayout {
         id: row
-        anchors.fill: parent
-        anchors.margins: Theme.Mocha.spaceSm
-        spacing: Theme.Mocha.spaceXs
+        anchors.left: parent.left
+        anchors.right: parent.right
+        spacing: 6
+        layoutDirection: Qt.LeftToRight
 
         component PwrBtn: Rectangle {
             property string icon: ""
             property bool danger: false
             signal clicked()
             Layout.fillWidth: true
-            implicitHeight: 36
-            radius: Theme.Mocha.radiusSm
+            Layout.preferredHeight: 28
+            radius: 7
             color: ma.containsMouse
-                ? (danger ? Qt.alpha(Theme.Mocha.red, 0.25) : Theme.Mocha.surface0)
-                : "transparent"
+                ? (danger ? Qt.rgba(0.953, 0.545, 0.659, 0.18) : Theme.Mocha.surface1)
+                : Theme.Mocha.surface0
+            border.width: 1
+            border.color: danger
+                ? Qt.rgba(0.953, 0.545, 0.659, 0.25)   // red@0.25
+                : Theme.Mocha.surface1
+
             Text {
                 anchors.centerIn: parent
                 text: parent.icon
                 color: parent.danger ? Theme.Mocha.red : Theme.Mocha.subtext0
                 font.family: Theme.Mocha.iconFamily
-                font.pixelSize: 14
+                font.pixelSize: 12
             }
             MouseArea {
                 id: ma
@@ -40,11 +44,11 @@ Rectangle {
             }
         }
 
-        // \uXXXX escapes — literal PUA glyphs get stripped by some file writes.
-        PwrBtn { icon: "";  onClicked: Services.Hyprland.dispatch("exec hyprlock") }            // lock
-        PwrBtn { icon: "";  onClicked: Services.Hyprland.dispatch("exit") }                     // sign-out
-        PwrBtn { icon: "";  onClicked: Services.Hyprland.dispatch("exec systemctl suspend") }   // bed
-        PwrBtn { icon: "";  onClicked: Services.Hyprland.dispatch("exec reboot") }              // refresh
-        PwrBtn { icon: "";  danger: true; onClicked: Services.Hyprland.dispatch("exec shutdown now") }  // power-off
+        // \uXXXX escapes — literal PUA glyphs get stripped during Write.
+        PwrBtn { icon: "\uF023"; onClicked: Services.Hyprland.dispatch("exec hyprlock") }            // lock
+        PwrBtn { icon: "\uF08B"; onClicked: Services.Hyprland.dispatch("exit") }                     // sign-out
+        PwrBtn { icon: "\uF236"; onClicked: Services.Hyprland.dispatch("exec systemctl suspend") }   // bed
+        PwrBtn { icon: "\uF021"; onClicked: Services.Hyprland.dispatch("exec reboot") }              // refresh
+        PwrBtn { icon: "\uF011"; danger: true; onClicked: Services.Hyprland.dispatch("exec shutdown now") }  // power-off
     }
 }

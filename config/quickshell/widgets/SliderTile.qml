@@ -6,6 +6,8 @@ import "../services" as Services
 Rectangle {
     color: Theme.Mocha.mantle
     radius: Theme.Mocha.radiusMd
+    border.width: 1
+    border.color: Theme.Mocha.surface0
     implicitHeight: col.implicitHeight + Theme.Mocha.spaceSm * 2
 
     ColumnLayout {

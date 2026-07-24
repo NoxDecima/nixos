@@ -44,6 +44,7 @@ in
 	    hyprshot
 	    unstable.quickshell
 	    brightnessctl
+	    playerctl
 	    wofi
 	    nautilus
         hyprpolkitagent
