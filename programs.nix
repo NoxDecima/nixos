@@ -20,7 +20,10 @@ in
 	    # Shell
       kitty
 
-      thunderbird
+      # From unstable (152+) for the Gecko fix to Mozilla bug 2008777: stable's
+      # 146 crashes on Hyprland 0.56's color-management protocol (wp_color_manager_v1
+      # v2) — "wp_image_description_v1 has no event 2". See also firefox/zen if they crash.
+      unstable.thunderbird
 
 
 	    # JS
