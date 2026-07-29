@@ -27,6 +27,14 @@ QtObject {
 
         onNotification: (notification) => {
             notification.tracked = true
+            // IMPORTANT: store ONLY plain, serializable data in the entry.
+            // Caching live QObjects here (the Notification or its `actions`
+            // NotificationAction list) caused a use-after-free crash: when the
+            // sender closed/replaced a notification, the server freed those
+            // objects while the entry was still in `notifs`/`activeToasts`, and
+            // the next Repeater delegate incubation dereferenced the dangling
+            // pointer (QV4::QObjectWrapper::wrap -> SIGSEGV). Live objects are
+            // now resolved on demand from `server.trackedNotifications` by id.
             const entry = {
                 id: notification.id,
                 appName: notification.appName,
@@ -34,13 +42,13 @@ QtObject {
                 appIconUrl: root._resolveIconSource(notification.appIcon ?? ""),
                 summary: notification.summary,
                 body: notification.body,
-                image: notification.image,
                 urgency: notification.urgency,  // 0=low, 1=normal, 2=critical
-                actions: notification.actions,
+                actions: (notification.actions ?? [])
+                    .filter(a => a)
+                    .map(a => ({ identifier: a.identifier, text: a.text ?? "" })),
                 hasInlineReply: notification.hasInlineReply ?? false,
                 inlineReplyPlaceholder: notification.inlineReplyPlaceholder ?? "",
-                timestamp: Date.now(),
-                notification: notification
+                timestamp: Date.now()
             }
             root.notifs = [entry, ...root.notifs]
             if (!Services.DND.enabled) {
@@ -50,25 +58,45 @@ QtObject {
         }
     }
 
-    function dismiss(id) {
-        const entry = notifs.find(n => n.id === id)
-        // entry.notification may already be a destroyed QObject if the daemon
-        // closed it (e.g. immediately after an action invocation). The optional
-        // chain returns undefined on a dead object in recent Qt but some paths
-        // still throw on property access, so wrap defensively.
-        try {
-            if (entry?.notification?.dismiss) entry.notification.dismiss()
-        } catch (e) {
-            // already torn down server-side; nothing to do
+    // Resolve the LIVE Notification QObject for an id from the server's tracked
+    // set. Returns null if the notification has already been closed/freed
+    // server-side (the whole point — we never hold the pointer ourselves).
+    function _liveNotif(id) {
+        const list = root.server.trackedNotifications?.values ?? []
+        for (let i = 0; i < list.length; i++) {
+            if (list[i] && list[i].id === id) return list[i]
         }
-        notifs = notifs.filter(n => n.id !== id)
-        activeToasts = activeToasts.filter(n => n.id !== id)
+        return null
+    }
+
+    // Invoke an app-provided action (or "default") by looking up the live
+    // notification at call time. No-op if it's already gone.
+    function invokeAction(id, actionId) {
+        const n = _liveNotif(id)
+        if (!n) return
+        const action = (n.actions ?? []).find(a => a && a.identifier === actionId)
+        try { if (action && action.invoke) action.invoke() } catch (e) {}
+    }
+
+    // Send an inline reply for a notification by id, via the live object.
+    function sendReply(id, text) {
+        if (!text || text.length === 0) return
+        const n = _liveNotif(id)
+        try { if (n && n.sendInlineReply) n.sendInlineReply(text) } catch (e) {}
+    }
+
+    function dismiss(id) {
+        const n = _liveNotif(id)
+        try { if (n && n.dismiss) n.dismiss() } catch (e) { /* already closed */ }
+        notifs = notifs.filter(e => e.id !== id)
+        activeToasts = activeToasts.filter(e => e.id !== id)
         stateChanged()
     }
 
     function clearAll() {
-        notifs.forEach(n => {
-            try { if (n.notification?.dismiss) n.notification.dismiss() } catch (e) {}
+        notifs.forEach(e => {
+            const n = _liveNotif(e.id)
+            try { if (n && n.dismiss) n.dismiss() } catch (err) {}
         })
         notifs = []
         activeToasts = []
