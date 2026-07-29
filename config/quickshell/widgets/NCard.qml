@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../theme" as Theme
+import "../services" as Services
 
 Rectangle {
     id: card
@@ -22,9 +23,7 @@ Rectangle {
     function sendReply() {
         const text = replyField.text
         if (!text || text.length === 0) return
-        if (card.entry?.notification?.sendInlineReply) {
-            card.entry.notification.sendInlineReply(text)
-        }
+        Services.Notifications.sendReply(card.entry?.id, text)
         replyField.text = ""
         card.replyOpen = false
         card.dismissed()
@@ -158,8 +157,7 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     enabled: (card.entry?.actions ?? []).some(a => a && a.identifier === "default")
                     onClicked: {
-                        const def = (card.entry?.actions ?? []).find(a => a && a.identifier === "default")
-                        if (def && def.invoke) def.invoke()
+                        Services.Notifications.invokeAction(card.entry?.id, "default")
                         card.dismissed()
                     }
                 }
