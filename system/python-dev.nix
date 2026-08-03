@@ -21,16 +21,11 @@ in
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-#        stdenv.cc.cc.lib
-#        libz
+      stdenv.cc.cc.lib
+      libz
+      pipewire.jack # Include this lib as it is required for PipeWire and we overwrite its binding.
     ];
   };
-
-  environment.variables.LD_LIBRARY_PATH = lib.mkForce (lib.makeLibraryPath ( with pkgs; [
-    stdenv.cc.cc.lib
-    libz
-    pipewire.jack # Include this lib as it is required for PipeWire and we overwrite its binding.
-  ]));
 
   environment.localBinInPath = true;
 }
