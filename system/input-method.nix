@@ -19,6 +19,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    fcitx5-configtool
+    qt6Packages.fcitx5-configtool
   ];
 }
