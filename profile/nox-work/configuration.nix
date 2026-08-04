@@ -32,6 +32,7 @@
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
+        configurationLimit = 10;
         theme = ../../config/grub/themes/catppuccin-mocha-grub-theme;
     };
 
