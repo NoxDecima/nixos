@@ -20,7 +20,7 @@
             KERNEL=="uinput", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
           '';
 
-          environment.systemPackages = [ self.packages.${pkgs.system}.voxd ];
+          environment.systemPackages = [ self.packages.${pkgs.stdenv.hostPlatform.system}.voxd ];
         };
       };
     in
