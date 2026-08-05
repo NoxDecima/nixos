@@ -34,6 +34,7 @@ in
       slack
       google-cloud-sdk
       inputs.claude-code.packages."${settings.system}".default
+      teams-for-linux
 
       # Utils
       gnome-clocks
