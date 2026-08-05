@@ -23,6 +23,7 @@
         ../../system/printing.nix
         ../../system/input-method.nix
         ../../system/clipboard.nix
+        ../../system/tas2781-speaker-fix.nix
 #	    ./system/update.nix
 	];
 
