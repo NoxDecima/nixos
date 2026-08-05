@@ -17,7 +17,9 @@
         };
         script = ''
             for _ in $(seq 1 30); do
-                if ${pkgs.alsa-utils}/bin/amixer -c sofhdadsp cset name='Speaker Force Firmware Load' on; then
+                # iface=CARD is required: cset resolves bare name= against the
+                # MIXER interface, but this control lives on the CARD interface
+                if ${pkgs.alsa-utils}/bin/amixer -c sofhdadsp cset iface=CARD,name='Speaker Force Firmware Load' on; then
                     exit 0
                 fi
                 sleep 1
