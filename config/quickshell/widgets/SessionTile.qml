@@ -45,10 +45,12 @@ Item {
         }
 
         // \uXXXX escapes — literal PUA glyphs get stripped during Write.
-        PwrBtn { icon: "\uF023"; onClicked: Services.Hyprland.dispatch("exec hyprlock") }            // lock
-        PwrBtn { icon: "\uF08B"; onClicked: Services.Hyprland.dispatch("exit") }                     // sign-out
-        PwrBtn { icon: "\uF236"; onClicked: Services.Hyprland.dispatch("exec systemctl suspend") }   // bed
-        PwrBtn { icon: "\uF021"; onClicked: Services.Hyprland.dispatch("exec reboot") }              // refresh
-        PwrBtn { icon: "\uF011"; danger: true; onClicked: Services.Hyprland.dispatch("exec shutdown now") }  // power-off
+        // Hyprland 0.55+ (Lua config) evaluates dispatch args as Lua, so we
+        // pass the hl.dsp.* form directly (no legacy hyprlang support needed).
+        PwrBtn { icon: "\uF023"; onClicked: Services.Hyprland.dispatch("hl.dsp.exec_cmd('hyprlock')") }            // lock
+        PwrBtn { icon: "\uF08B"; onClicked: Services.Hyprland.dispatch("hl.dsp.exit()") }                            // sign-out
+        PwrBtn { icon: "\uF236"; onClicked: Services.Hyprland.dispatch("hl.dsp.exec_cmd('systemctl suspend')") }    // bed
+        PwrBtn { icon: "\uF021"; onClicked: Services.Hyprland.dispatch("hl.dsp.exec_cmd('reboot')") }               // refresh
+        PwrBtn { icon: "\uF011"; danger: true; onClicked: Services.Hyprland.dispatch("hl.dsp.exec_cmd('shutdown now')") }  // power-off
     }
 }
