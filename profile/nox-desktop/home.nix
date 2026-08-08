@@ -19,12 +19,12 @@
           "${config.home.homeDirectory}/nixos/config/hypr/idle-suspend.sh";
         ".config/hypr/hyprlock.conf".source = config.lib.file.mkOutOfStoreSymlink
           "${config.home.homeDirectory}/nixos/config/hypr/hyprlock.conf";
-        ".config/hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/nixos/config/hypr/hyprland.conf";
+        ".config/hypr/hyprland.lua".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/hyprland.lua";
         ".config/hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink
           "${config.home.homeDirectory}/nixos/config/hypr/hyprpaper.conf";
-        ".config/hypr/monitors.conf".source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/nixos/config/hypr/monitors-desktop.conf";
+        ".config/hypr/monitors.lua".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/nixos/config/hypr/monitors-desktop.lua";
         ".config/hypr/theme".source = config.lib.file.mkOutOfStoreSymlink
           "${config.home.homeDirectory}/nixos/config/hypr/theme";
         ".config/hypr/hypr-config".source = config.lib.file.mkOutOfStoreSymlink
