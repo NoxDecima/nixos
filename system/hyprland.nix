@@ -50,6 +50,25 @@ in
     };
 
     programs.waybar.enable = true;
+    # TODO: revert to the tracked channel package once nixpkgs ships a waybar
+    # with the Hyprland Lua-dispatch fix (upstream Alexays/Waybar PR #5013).
+    # Without it, hyprland/workspaces clicks/scroll fail under the 0.55+ Lua
+    # IPC protocol. Pin to a master commit that contains the fix instead.
+    programs.waybar.package = unstable.waybar.overrideAttrs (old: {
+        # Keep the upstream meson project version: master still reports
+        # "Waybar v0.15.0" and nixpkgs' versionCheckPhase must match it.
+        src = pkgs.fetchFromGitHub {
+            owner = "Alexays";
+            repo = "Waybar";
+            rev = "084d87401d0a91182c16aa7e5f674a7dde767185"; # master @ 2026-08-03
+            sha256 = "1iqm9n3nlhjkagy9f0x7mfjkfrm79din32kywass79yfncwz1srw";
+        };
+        # master gained a WWAN module; nixpkgs' -Dauto_features=enabled would
+        # force it on and hard-require mm-glib (ModemManager). Disable it.
+        # cava is not used here and master's subproject fallback pins cava
+        # 1.0.0 (nixpkgs bundles 0.10.7-beta), so drop it too.
+        mesonFlags = old.mesonFlags ++ [ "-Dwwan=disabled" "-Dcava=disabled" ];
+    });
     services.hypridle.enable = true;
     programs.hyprlock.enable = true;
 
