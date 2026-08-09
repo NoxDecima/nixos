@@ -10,7 +10,6 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-		catppuccin.url = "github:catppuccin/nix";
 		claude-code.url = "github:sadjow/claude-code-nix";
 		voxd.url = "path:./flakes/voxd";
 	};
@@ -20,21 +19,25 @@
 		settings = {
 			userName = "nox";
 			system = "x86_64-linux";
-			profile = "default"; # TODO: use this
-			timezone = "Europe/Amsterdam"; # TODO: use this
-			locale = "en_US.UTF-8"; # TODO: use this
-			bootMode = ""; # TODO: use this
-			gpuType = "nvidia"; # TODO: use this
+			timezone = "Europe/Amsterdam";
+			locale = "en_US.UTF-8";
 		};
 		lib = nixpkgs.lib;
 		pkgs = nixpkgs.legacyPackages.${settings.system};
+
+		# Single nixpkgs-unstable instantiation, shared by every module that
+		# needs newer packages (each `import nixpkgs {}` re-evaluates nixpkgs).
+		unstable = import inputs.nixpkgs-unstable {
+			system = settings.system;
+			config.allowUnfree = true;
+		};
 
         # Helper function to create a configuration for a specific profile
         mkSystem = profile: lib.nixosSystem {
             system = settings.system;
             modules = [
                 # Common configuration
-                # ./profiles/common/configuration.nix
+                ./profile/common/configuration.nix
                 # Profile-specific configuration
                 ./profile/${profile}/configuration.nix
 
@@ -45,7 +48,7 @@
                     home-manager.users.${settings.userName} = {
                         imports = [
                             # Common home-manager config
-                            # ./profiles/common/home.nix
+                            ./profile/common/home.nix
                             # Profile-specific home-manager config
                             ./profile/${profile}/home.nix
                         ];
@@ -61,6 +64,7 @@
                 inherit inputs;
                 inherit settings;
                 inherit profile;
+                inherit unstable;
             };
         };
 	in {

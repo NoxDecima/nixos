@@ -1,12 +1,5 @@
-{ inputs, settings, config, pkgs, lib, ... }:
-let
-  unstable = import inputs.nixpkgs-unstable {
-    system = settings.system;
-    config = {
-      allowUnfree = true;
-    };
-  };
-in
+{ pkgs, unstable, ... }:
+
 {
   environment.systemPackages = with pkgs; [
 #    cargo

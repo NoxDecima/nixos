@@ -2,9 +2,6 @@ module services
 singleton DND 1.0 DND.qml
 singleton Notifications 1.0 Notifications.qml
 singleton Hyprland 1.0 Hyprland.qml
-singleton SystemTray 1.0 SystemTray.qml
-singleton SystemClock 1.0 SystemClock.qml
-singleton UPower 1.0 UPower.qml
 singleton Audio 1.0 Audio.qml
 singleton Brightness 1.0 Brightness.qml
 singleton Network 1.0 Network.qml

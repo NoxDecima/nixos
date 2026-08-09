@@ -1,13 +1,6 @@
-{ inputs, pkgs, settings, ... }:
+{ inputs, pkgs, settings, unstable, ... }:
 let
     spotube = pkgs.callPackage (import ./flakes/spotube.nix) {};
-
-    unstable = import inputs.nixpkgs-unstable {
-        system = settings.system;
-        config = {
-          allowUnfree = true;
-        };
-    };
 in
 {
     environment.systemPackages = with pkgs; [

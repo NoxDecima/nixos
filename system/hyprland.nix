@@ -1,7 +1,5 @@
-{ inputs, settings, pkgs, ... }:
-let
-    unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in
+{ settings, pkgs, unstable, ... }:
+
 {
     # Enable the X11 windowing system.
 	services.xserver.enable = true;
