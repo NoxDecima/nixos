@@ -5,7 +5,7 @@
 		./hardware-configuration.nix
 		../../system/bluetooth.nix
 		../../system/power-profiles.nix
-		../../system/tas2781-speaker-fix.nix
+		./tas2781-speaker-fix.nix
 #		../../system/update.nix
 	];
 

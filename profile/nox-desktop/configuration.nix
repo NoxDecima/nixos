@@ -3,7 +3,7 @@
 {
 	imports = [
 		./hardware-configuration.nix
-		../../system/audio.nix
+		./alc892-jack-retask.nix
 #		../../system/update.nix
 	];
 
