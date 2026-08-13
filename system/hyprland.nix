@@ -10,23 +10,7 @@
 	# "gnome-session", which isn't installed here → silent login loop.
 	services.displayManager.defaultSession = "hyprland";
 
-	# Hyprland (started plain, without uwsm) never activates systemd's
-	# graphical-session.target, so user units like hypridle/waybar that are
-	# WantedBy it stay dead. hyprland.conf starts this target via exec-once;
-	# BindsTo pulls graphical-session.target up with it.
-	systemd.user.targets.hyprland-session = {
-	    description = "Hyprland compositor session";
-	    bindsTo = [ "graphical-session.target" ];
-	    wants = [ "graphical-session-pre.target" ];
-	    after = [ "graphical-session-pre.target" ];
-	};
-
-	# These user units are global, so the GDM greeter user also starts them and
-	# crash-loops (no config / no layer-shell there). Only run them for us.
-	systemd.user.services.hypridle.unitConfig.ConditionUser = settings.userName;
-	systemd.user.services.waybar.unitConfig.ConditionUser = settings.userName;
-
-    services.libinput.touchpad.naturalScrolling = true;
+  services.libinput.touchpad.naturalScrolling = true;
 
 
 	# TODO: enable capslock by default

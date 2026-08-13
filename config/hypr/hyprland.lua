@@ -36,8 +36,6 @@ require("hypr-config/windows")
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d --replace")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
-  -- Activate graphical-session.target so hypridle/waybar user units start.
-  hl.exec_cmd("systemctl --user start hyprland-session.target")
 
   hl.exec_cmd("waybar")
   hl.exec_cmd("quickshell")
