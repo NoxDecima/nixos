@@ -29,6 +29,8 @@ in
       inputs.claude-code.packages."${settings.system}".default
       teams-for-linux
 
+      jetbrains-toolbox
+
       # Utils
       gnome-clocks
       # TODO add a calculator
