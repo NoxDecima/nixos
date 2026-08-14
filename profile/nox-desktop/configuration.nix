@@ -4,6 +4,7 @@
 	imports = [
 		./hardware-configuration.nix
 		./alc892-jack-retask.nix
+		../../system/vr.nix
 #		../../system/update.nix
 	];
 

@@ -49,7 +49,6 @@ in
 
       # Games
       lutris
-      steam
 
       # Notes
       obsidian
@@ -84,6 +83,11 @@ in
       # WIFI applet
       networkmanagerapplet
 	];
+
+    # Steam via the module rather than the bare package: same wrapped Steam and
+    # the same ~/.local/share/Steam data, plus the udev rules for controllers
+    # and VR headsets (hardware.steam-hardware) and 32-bit audio support.
+    programs.steam.enable = true;
 
     xdg.mime.defaultApplications = {
       "inode/directory" = "org.gnome.Nautilus.desktop";
