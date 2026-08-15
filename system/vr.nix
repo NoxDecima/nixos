@@ -18,6 +18,11 @@
     # mutually exclusive with the service's systemd hardening options.
     highPriority = true;
 
+    # The module defaults the compositor to debug, which logs a line per
+    # rendered frame for as long as a headset is connected. Connects,
+    # disconnects and errors still come through at info.
+    monadoEnvironment.XRT_COMPOSITOR_LOG = "info";
+
     steam = {
       # The same wrapped Steam that programs.steam installs. Left at its
       # default, both modules would push a different steam derivation into
