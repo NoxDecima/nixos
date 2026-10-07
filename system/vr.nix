@@ -1,6 +1,11 @@
-{ config, ... }:
+{ config, unstable, ... }:
 
 {
+  # Steam Frame wireless adapter (USB 28de:2432, an RTL8852CU). rtw89_8852cu
+  # only gained its Valve-specific config in 7.2; older kernels leave the
+  # dongle unbound or stuck in a reset loop. Stable 26.05 tops out at 7.1.
+  boot.kernelPackages = unstable.linuxPackages_7_2;
+
   # Meta Quest 3 over WiVRn: a Monado-based OpenXR streaming server. WiVRn is
   # the system OpenXR runtime itself, so SteamVR-on-Linux stays out of the
   # picture; OpenVR-only titles go through the bundled OpenComposite.
