@@ -6,6 +6,24 @@
   # dongle unbound or stuck in a reset loop. Stable 26.05 tops out at 7.1.
   boot.kernelPackages = unstable.linuxPackages_7_2;
 
+  # The headset's link runs on 6 GHz, which the world regdomain (00) leaves
+  # entirely disabled; without a country the dongle never sees the Frame.
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="NL"
+  '';
+
+  # Give the dongle a fixed name instead of the port-derived wlp*u*, matched
+  # on its USB IDs so it holds in any port and for any Frame adapter.
+  systemd.network.links."10-steam-frame" = {
+    matchConfig.Property = [ "ID_VENDOR_ID=28de" "ID_MODEL_ID=2432" ];
+    linkConfig.Name = "steamframe0";
+  };
+
+  # Pairing and streaming run over the dongle's private link to the headset
+  # (Steam on TCP/UDP 27036, UDP 27031-27036, plus undocumented VR ports), so
+  # trust it outright.
+  networking.firewall.trustedInterfaces = [ "steamframe0" ];
+
   # Meta Quest 3 over WiVRn: a Monado-based OpenXR streaming server. WiVRn is
   # the system OpenXR runtime itself, so SteamVR-on-Linux stays out of the
   # picture; OpenVR-only titles go through the bundled OpenComposite.
