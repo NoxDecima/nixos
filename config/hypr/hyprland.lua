@@ -36,6 +36,8 @@ require("hypr-config/windows")
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d --replace")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
+  -- graphical-session.target never activates (no UWSM), so start it by hand; no-op on desktop
+  hl.exec_cmd("systemctl --user start batsignal")
 
   hl.exec_cmd("waybar")
   hl.exec_cmd("quickshell")
