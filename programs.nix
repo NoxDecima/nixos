@@ -69,7 +69,6 @@ in
       evince
       xournalpp
       loupe
-      apostrophe
 
       discord
 
