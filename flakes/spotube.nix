@@ -10,19 +10,32 @@
   undmg,
   wrapGAppsHook3,
 
+  alsa-lib,
+  cairo,
+  dbus,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
   glib-networking,
   gtk3,
-  libappindicator,
-  libnotify,
+  libGL,
   libsoup_3,
-  mpv-unwrapped,
-  xdg-user-dirs,
+  libvlc,
+  libx11,
+  libxext,
+  libxi,
+  libxrender,
+  libxtst,
+  pango,
   webkitgtk_4_1,
+  xdg-user-dirs,
+  zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "spotube";
-  version = "5.1.2";
+  version = "6.0.0";
 
   src = finalAttrs.passthru.sources.${stdenv.hostPlatform.system};
 
@@ -41,12 +54,19 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    alsa-lib
+    fontconfig
+    freetype
     glib-networking
     gtk3
-    libappindicator
-    libnotify
-    libsoup_3
-    webkitgtk_4_1
+    libGL
+    libx11
+    libxext
+    libxi
+    libxrender
+    libxtst
+    (lib.getLib stdenv.cc.cc)
+    zlib
   ];
 
   dontWrapGApps = true;
@@ -57,6 +77,9 @@ stdenv.mkDerivation (finalAttrs: {
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out
     cp -r usr/* $out
+    cp -r opt/spotube $out/share/spotube
+    substituteInPlace $out/share/applications/spotube.desktop \
+      --replace-fail "Exec=/opt/spotube/spotube" "Exec=spotube"
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
@@ -70,8 +93,24 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     makeWrapper $out/share/spotube/spotube $out/bin/spotube \
       "''${gappsWrapperArgs[@]}" \
-      --prefix LD_LIBRARY_PATH : $out/share/spotube/lib:${lib.makeLibraryPath [ mpv-unwrapped ]} \
-      --prefix PATH : ${lib.makeBinPath [ xdg-user-dirs ]}
+      --prefix LD_LIBRARY_PATH : $out/share/spotube:$out/share/spotube/lib:${
+        lib.makeLibraryPath [
+          # also covers libs the app extracts to ~/.cache/nucleus at runtime
+          cairo
+          dbus
+          gdk-pixbuf
+          glib
+          gtk3
+          libGL
+          libsoup_3
+          libvlc
+          pango
+          stdenv.cc.cc
+          webkitgtk_4_1
+        ]
+      } \
+      --prefix PATH : ${lib.makeBinPath [ xdg-user-dirs ]} \
+      --set-default WEBKIT_DISABLE_DMABUF_RENDERER 1 # login webview: Wayland protocol error 71 on NVIDIA
   '';
 
   passthru.sources =
@@ -80,26 +119,22 @@ stdenv.mkDerivation (finalAttrs: {
         { suffix, hash }:
         fetchurl {
           name = "Spotube-${finalAttrs.version}-${suffix}";
-          url = "https://github.com/KRTirtho/spotube/releases/download/v${finalAttrs.version}/Spotube-${suffix}";
+          url = "https://github.com/team-spotube/spotube/releases/download/v${finalAttrs.version}/Spotube-${suffix}";
           inherit hash;
         };
     in
     {
       "aarch64-linux" = fetchArtifact {
         suffix = "linux-aarch64.deb";
-        hash = "sha256:0ca021p4dlpc04ixihlq27h8pgr216qhih8va7rivh3ms8y6mgvi";
+        hash = "sha256:0m1zdj1s6ay2p45hv764jhvkyn2zj8cx89gp69x7z69hqx144n83";
       };
       "x86_64-linux" = fetchArtifact {
         suffix = "linux-x86_64.deb";
-        hash = "sha256:1kg8j9iv1d43pjipalax63is0agv094jgibrw8q06f46z6cgjihl";
-      };
-      "x86_64-darwin" = fetchArtifact {
-        suffix = "macos-universal.dmg";
-        hash = "sha256:04q9mj3ycjm981ln2fm4js93jl24vinai9kb3apl000r8kypsqi7";
+        hash = "sha256:0kxk2ds28ywan21lmjv7mfrx9lifdwlc0i3lnn98javm3k5pnlq9";
       };
       "aarch64-darwin" = fetchArtifact {
-        suffix = "macos-universal.dmg";
-        hash = "sha256:04q9mj3ycjm981ln2fm4js93jl24vinai9kb3apl000r8kypsqi7";
+        suffix = "macos-apple-silicon.dmg";
+        hash = "sha256:1ls5s89cdnyyykidfb4520vd0f9y5w11q7dgcgdayq0c19mdwq74";
       };
     };
 
@@ -110,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
       multiple platforms utilizing Spotify's data API and YouTube (or Piped.video or JioSaavn)
       as an audio source, eliminating the need for Spotify Premium
     '';
-    downloadPage = "https://github.com/KRTirtho/spotube/releases";
+    downloadPage = "https://github.com/team-spotube/spotube/releases";
     homepage = "https://spotube.krtirtho.dev/";
     license = lib.licenses.bsdOriginal;
     mainProgram = "spotube";
