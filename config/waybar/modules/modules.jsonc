@@ -123,7 +123,7 @@
   "custom/gpu": {
     "interval": 30,
     "exec": "~/.config/waybar/modules/gpu.sh",
-    "on-click": "kitty nvtop"
+    "on-click": "kitty btop"
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float

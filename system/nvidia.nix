@@ -34,7 +34,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    nvtopPackages.nvidia
-  ];
+  # No nvtopPackages.nvidia: it depends on cuda-merged, which is unfree (not on
+  # cache.nixos.org) and gets built locally — tens of GB of disk on every
+  # nixpkgs bump. GPU stats come from btop instead (cudaSupport, programs.nix).
 }

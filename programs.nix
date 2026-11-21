@@ -8,15 +8,18 @@ in
 	    git
 	    gcc
 
-	    btop
+	    # cudaSupport only adds /run/opengl-driver/lib to the RUNPATH so btop can
+	    # dlopen libnvidia-ml for the GPU box; it pulls in no CUDA packages (cached).
+	    (btop.override { cudaSupport = true; })
 
 	    # Shell
       kitty
 
-      # From unstable (152+) for the Gecko fix to Mozilla bug 2008777: stable's
-      # 146 crashes on Hyprland 0.56's color-management protocol (wp_color_manager_v1
-      # v2) — "wp_image_description_v1 has no event 2". See also firefox/zen if they crash.
-      unstable.thunderbird
+      # Needs 152+ for the Gecko fix to Mozilla bug 2008777 (crash on Hyprland 0.56's
+      # wp_color_manager_v1 v2); stable 26.05 now ships 160. Keep it on the same nixpkgs
+      # as Zen: Thunderbird's wrapper prefixes LD_LIBRARY_PATH, which leaks into the
+      # browser it spawns for links — mixing channels makes Zen fail on a glibc mismatch.
+      thunderbird
 
 
 	    # JS
